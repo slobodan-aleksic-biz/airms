@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
     {
         factory(User::class)->create([
             "name" => "Slobodan Aleksic",
-            "email" => "slobodan.aleksic.biz@gmail.com",
+            "email" => "slobodan.aleksic.mne@gmail.com",
             'password' => Hash::make('Password123'),
             'entity' => EntityEnum::ADMIN,
             'role' => UserRoleEnum::ADMIN,
