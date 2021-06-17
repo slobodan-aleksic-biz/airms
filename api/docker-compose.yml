@@ -22,13 +22,13 @@ services:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
     ports:
-      - 3307
+      - 3306
     volumes:
       - ./.docker/db:/var/lib/mysql
     environment:
       MYSQL_DATABASE: airms
-      MYSQL_USER: airms_usr
-      MYSQL_PASSWORD: QrYEsFXBudQ4vu82
+      MYSQL_USER: airms_usr@%
+      MYSQL_PASSWORD: Secret123
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     networks:
       - app-network
