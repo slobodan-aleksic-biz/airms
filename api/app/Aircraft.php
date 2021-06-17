@@ -31,4 +31,6 @@ class Aircraft extends Model
     {
         $activity->description = "{$eventName}";
     }
+
+    protected $table = 'aircrafts';
 }
