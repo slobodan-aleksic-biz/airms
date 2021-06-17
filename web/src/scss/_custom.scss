@@ -1,0 +1,63 @@
+// Here you can add other styles
+
+.error-messages {
+  color: gray;
+}
+
+.w100px {
+  width: 100px;
+}
+
+.w80px {
+  width: 80px;
+}
+
+.w60px {
+  width: 60px;
+}
+
+.custom-select {
+  padding: 1px 0 1.5px 0;
+}
+
+.custom-select > div {
+  border: 0px;
+  padding: 1px 0 1.5px 0;
+}
+
+
+.sm-font {
+  font-size: 0.7rem;
+}
+
+
+.modal-header {
+  border-top-left-radius: 0rem;
+  border-top-right-radius: 0rem;
+}
+
+.modal-title {
+  font-size: 1.004rem;
+}
+
+.modal-content {
+  border-radius: 0rem;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.scrolling-wrapper {
+  overflow-x: auto;
+}
+
+.dark-title {
+  color: #23282c;
+  opacity: 0.85;
+}
+
+.bg-img {
+  background-image: url(../assets/img/others/commercial-hanger3.jpg);
+}

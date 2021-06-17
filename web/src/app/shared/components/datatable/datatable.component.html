@@ -1,0 +1,304 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-header">
+      {{title}}
+    </div>
+    <div class="card-body sm-font">
+      <div class="row mb-3">
+        <div class="col-md-1">
+          <button (click)="onAdd()" type="button" class="btn btn-primary w100px"><i class="fa fa-plus"></i>&nbsp;
+            Add
+          </button>
+        </div>
+        <div class="col-md-4 offset-md-7">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+            <input type="text" class="form-control" [(ngModel)]="filterQuery" (ngModelChange)="onSearchChange($event)"
+              placeholder="Search" />
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="title != 'Log Book'" class="table-responsive">
+        <table class="table table-striped table-hover" [mfData]="dataVal" #mf="mfDataTable" [mfRowsOnPage]="10"
+          *ngIf="dataVal">
+          <thead>
+            <tr>
+              <th [style]="'width:'+((columns.length+2)/100)+'%'" *ngFor="let col of columns; let i = index"
+                class="text-{{ col.indexOf('_right') > -1 ? 'right' : (col.indexOf('_left') > -1 ? 'left' : 'center' ) }}">
+                <mfDefaultSorter *ngIf="i == 0" by="{{ i }}">
+                  #
+                </mfDefaultSorter>
+                <mfDefaultSorter *ngIf="i > 0" by="{{ col }}">
+                  {{ col.replace('_right','').replace('_left','').replace('_center','').replaceAll('_',' ') | uppercase | underscoreless }}
+                </mfDefaultSorter>
+              </th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of mf.data; let i = index">
+              <td *ngFor="let col of columns; let j = index"
+                class="text-{{ col.indexOf('_right') > -1 ? 'right' : (col.indexOf('_left') > -1 ? 'left' : 'center' ) }} py-2"
+                nowrap>
+                <span *ngIf="j == 0" [innerHTML]="i+1+(mf.rowsOnPage*(mf.activePage-1))"></span>
+                <span *ngIf="j > 0" [innerHTML]="item[col]"></span>
+              </td>
+              <td nowrap class="py-2">
+                <button (click)="onEdit(item.id)" class="btn btn-primary btn-sm w80px"><i class="fa fa-edit"></i>&nbsp;
+                  Edit</button>
+                <button (click)="onDelete(item.id)" class="btn btn-danger btn-sm w80px"><i
+                    class="fa fa-trash"></i>&nbsp;
+                  Delete</button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="100">
+                <span class="pull-left border border-gray rounded">
+                  <h6 class="pt-2 px-2 sm-font" *ngIf="dataVal">TOTAL {{ dataVal.length }}</h6>
+                </span>
+                <button (click)="onExport()" type="button" class="btn sm-font btn-light w100px ml-2"><i
+                    class="fa fa-download"></i>&nbsp;
+                  Export
+                </button>
+                <mfBootstrapPaginator class="pull-right" [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+        <div *ngIf="!dataVal && !noData" class="sk-three-bounce">
+          <div class="sk-child sk-bounce1 bg-primary">
+          </div>
+          <div class="sk-child sk-bounce2 bg-primary">
+          </div>
+          <div class="sk-child sk-bounce3"></div>
+        </div>
+        <div *ngIf="!dataVal && noData" class="card card-header text-muted text-center">
+          Empty
+        </div>
+      </div>
+
+      <div *ngIf="title == 'Log Book'" class="table-responsive">
+        <table class="table table-striped table-hover" [mfData]="dataVal" #mf="mfDataTable" [mfRowsOnPage]="10"
+          *ngIf="dataVal">
+          <thead>
+            <tr>
+              <th colspan="2"></th>
+              <th colspan="2" class="text-center bg-gray-100">DEPARTURE</th>
+              <th colspan="2" class="text-center">ARRIVAL</th>
+              <th class="text-center bg-gray-100"></th>
+              <th class="text-center"></th>
+              <th colspan="3" class="text-center bg-gray-100" nowrap>FLIGHT HOURS</th>
+              <th colspan="3" class="text-center" nowrap>FLIGHT CYCLES</th>
+              <th colspan="6" class="text-center bg-gray-100" nowrap>DELAY REASONS</th>
+              <th colspan="2" class="text-center"></th>
+              <th class="text-center bg-gray-100"></th>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+
+              <th>
+              </th>
+              <th class="text-center">
+                <mfDefaultSorter by="flight_no_center">
+                  FLIGHT<br>NO
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center bg-gray-100">
+                <mfDefaultSorter by="origin_center">
+                  ORIGIN
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center bg-gray-100">
+                <mfDefaultSorter by="flight_time_start_center">
+                  FLIGHT<br>TIME<br>START
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center">
+                <mfDefaultSorter by="destination_center">
+                  DESTINATION
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center">
+                <mfDefaultSorter by="flight_time_end_center">
+                  FLIGHT<br>TIME<br>END
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center bg-gray-100">
+                <mfDefaultSorter by="aircraft_reg_center">
+                  AIRCRAFT<br>REG
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center">
+                <mfDefaultSorter by="captain_center">
+                  CAPTAIN
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center bg-gray-100">
+                <mfDefaultSorter by="flight_hours_right">
+                  FLIGHT<br>HOURS
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center bg-gray-100">
+                <mfDefaultSorter by="previous_hours_right">
+                  PREVIOUS<br>HOURS
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center bg-gray-100">
+                <mfDefaultSorter by="total_hours_right">
+                  TOTAL<br>HOURS
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center">
+                <mfDefaultSorter by="flight_cycles_right">
+                  FLIGHT<br>CYCLES
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center">
+                <mfDefaultSorter by="previous_cycles_right">
+                  PREVIOUS<br>CYCLES
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center">
+                <mfDefaultSorter by="total_cycles_right">
+                  TOTAL<br>CYCLES
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center bg-gray-100">
+                <mfDefaultSorter by="code_i_center">
+                  CODE I
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center bg-gray-100">
+                <mfDefaultSorter by="delay_in_min_i_center">
+                  DELAY I<br>(MIN)
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center bg-gray-100">
+                <mfDefaultSorter by="code_ii_center">
+                  CODE II
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center bg-gray-100">
+                <mfDefaultSorter by="delay_in_min_ii_center">
+                  DELAY II<br>(MIN)
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center bg-gray-100">
+                <mfDefaultSorter by="code_iii_center">
+                  CODE III
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center bg-gray-100">
+                <mfDefaultSorter by="delay_in_min_iii_center">
+                  DELAY III<br>(MIN)
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center">
+                <mfDefaultSorter by="created_at_center">
+                  CREATED AT
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center">
+                <mfDefaultSorter by="updated_at_center">
+                  UPDATED AT
+                </mfDefaultSorter>
+              </th>
+              <th class="text-center bg-gray-100" colspan="2">ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of mf.data; let i = index">
+              <td *ngFor="let col of columns; let j = index"
+                class="text-{{ col.indexOf('_right') > -1 ? 'right' : (col.indexOf('_left') > -1 ? 'left' : 'center' ) }} bg-white"
+                nowrap [ngClass]="{'bg-gray-100' :
+                j == 2 ||
+                j == 3 ||
+
+                j == 6 ||
+
+                j == 8 ||
+                j == 9 ||
+                j == 10 ||
+
+                j == 14 ||
+                j == 15 ||
+                j == 16 ||
+                j == 17 ||
+                j == 18 ||
+                j == 19
+              }">
+                <span *ngIf="j == 0" [innerHTML]="i+1+(mf.rowsOnPage*(mf.activePage-1))"></span>
+                <span *ngIf="
+                  j > 0
+                  && !(j == 3 || j == 4 || j == 5 || j == 6 || j == 7)" [innerHTML]="item[col]"></span>
+                <span *ngIf="j == 3 || j == 4 || j == 5 || j == 6 || j == 7" [innerHTML]="item[col].replace(' ','<br>')"></span>
+              </td>
+              <td class="bg-gray-100" nowrap>
+                <button (click)="onEdit(item.id)" class="btn btn-primary btn-sm w80px"><i class="fa fa-edit"></i>&nbsp;
+                  Edit</button>
+                <button (click)="onDelete(item.id)" class="btn btn-danger btn-sm w80px"><i
+                    class="fa fa-trash"></i>&nbsp;
+                  Delete</button>
+              </td>
+            </tr>
+
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="100">
+                <span class="pull-left border border-gray rounded">
+                  <h6 class="pt-2 px-2 sm-font" *ngIf="dataVal">TOTAL {{ dataVal.length }}</h6>
+                </span>
+                <button (click)="onExport()" type="button" class="btn sm-font btn-light w100px ml-2"><i
+                    class="fa fa-download"></i>&nbsp;
+                  Export
+                </button>
+                <mfBootstrapPaginator class="pull-right" [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+        <div *ngIf="!dataVal && !noData" class="sk-three-bounce">
+          <div class="sk-child sk-bounce1 bg-primary">
+          </div>
+          <div class="sk-child sk-bounce2 bg-primary">
+          </div>
+          <div class="sk-child sk-bounce3"></div>
+        </div>
+        <div *ngIf="!dataVal && noData" class="card card-header text-muted text-center">
+          Empty
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+
+<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header py-2">
+        <h5 class="modal-title">Warning</h5>
+        <button type="button" class="close" (click)="dangerModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-0 px-4"><br>
+        <p>Do you want to delete the {{ singularTitle }}? </p>
+      </div>
+      <div class="modal-footer py-2">
+        <button type="button" class="btn btn-secondary btn-sm w80px" (click)="dangerModal.hide()">No</button>
+        <button type="button" class="btn btn-danger btn-sm w80px" (click)="deleteAction()">Yes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

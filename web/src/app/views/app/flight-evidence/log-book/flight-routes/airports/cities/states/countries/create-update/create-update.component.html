@@ -1,0 +1,108 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="icon-note"></i> {{ title }}
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()" class="needs-validation">
+
+                <div class="form-group">
+                  <label class="col-form-label" for="name">Name</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-tag"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="name"
+                          type="text"
+                          formControlName="name"
+                          placeholder="Name"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.name.errors, 'is-valid': f.name.touched && !f.name.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                    <div *ngIf="f['name'].errors.required">Name is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="iso_code_2">ISO Code 2</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-grid"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="iso_code_2"
+                          type="text"
+                          formControlName="iso_code_2"
+                          placeholder="ISO Code 2"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.iso_code_2.errors, 'is-valid': f.iso_code_2.touched && !f.iso_code_2.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['iso_code_2'].errors" class="invalid-feedback">
+                    <div *ngIf="f['iso_code_2'].errors.required">ISO Code 2 is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="iso_code_3">ISO Code 3</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-grid"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="iso_code_3"
+                          type="text"
+                          formControlName="iso_code_3"
+                          placeholder="ISO Code 3"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.iso_code_3.errors, 'is-valid': f.iso_code_3.touched && !f.iso_code_3.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['iso_code_3'].errors" class="invalid-feedback">
+                    <div *ngIf="f['iso_code_3'].errors.required">ISO Code 3 is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="phone_code">Phone Code</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-phone"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="phone_code"
+                          type="text"
+                          formControlName="phone_code"
+                          placeholder="Phone Code"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.phone_code.errors, 'is-valid': f.phone_code.touched && !f.phone_code.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['phone_code'].errors" class="invalid-feedback">
+                    <div *ngIf="f['phone_code'].errors.required">Phone Code is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <button class="btn btn-success mr-1  w100px" type="submit" [disabled]="formGroup.invalid">Save</button>
+                  <button
+                    class="btn btn-danger w100px"
+                    type="reset"
+                    [disabled]="formGroup.pristine && !submitted"
+                    (click)="onReset()"
+                    *ngIf="!id">Reset</button>
+                  <a (click)="onCancel()" class="btn btn-secondary mr-1 w100px">Cancel</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

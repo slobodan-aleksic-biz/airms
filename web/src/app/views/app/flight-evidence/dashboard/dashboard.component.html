@@ -1,0 +1,58 @@
+<div class="animated fadeIn">
+
+  <div class="row">
+
+    <div *ngFor="let aircraft of aircrafts; let i = index" class="col-sm-6 col-lg-3">
+      <div class="card text-white" [ngClass]="{
+        'bg-primary': i%2 == 0,
+        'bg-info': i%2-1 == 0
+      }">
+        <div class="card-body pb-0 " (click)="onAircraft(aircraft)" style="cursor: pointer">
+          <div class="btn-group float-right" dropdown>
+            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
+              <i class="icon-settings"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>
+          <div>
+            <div class="text-value">{{ aircraft.name }}</div>
+            <div class="text-valuex row mt-2">
+              <div class="col-md-6 font-weight-bold">Flight Hours:</div>
+              <div class="col-md-6 text-right">{{ aircraft.total_hours_right }}</div>
+            </div>
+            <div class="text-valuex row">
+              <div class="col-md-6 font-weight-bold">Flight Cycles:</div>
+              <div class="col-md-6 text-right">{{ aircraft.total_cycles_right }}</div>
+            </div>
+            <div class="text-valuex row mt-2">
+              <div class="col-md-6 font-weight-bold">Last Flight No:</div>
+              <div class="col-md-6 text-right">{{ aircraft.flight_no_left }}</div>
+            </div>
+            <div class="text-valuex row">
+              <div class="col-md-6 font-weight-bold">Last Destination:</div>
+              <div class="col-md-6 text-right">{{ aircraft.destination_left }}</div>
+            </div>
+            <div class="text-valuex row">
+              <div class="col-md-5 font-weight-bold">Last Landing:</div>
+              <div class="col-md-7 text-right">{{ aircraft.flight_time_end_left }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+          <canvas baseChart class="chart" [datasets]="lineChart1Data" [labels]="lineChart1Labels"
+            [options]="lineChart1Options" [colors]="lineChart1Colours" [legend]="lineChart1Legend"
+            [chartType]="lineChart1Type"></canvas>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+
+  </div>
+  <!--/.row-->
+
+</div>

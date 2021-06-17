@@ -1,0 +1,96 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="icon-note"></i> {{ title }}
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()" class="needs-validation">
+
+                <div class="form-group">
+                  <label class="col-form-label" for="flight_no">Flight No</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-paper-plane-o"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="flight_no"
+                          type="text"
+                          formControlName="flight_no"
+                          placeholder="Flight No"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.flight_no.errors, 'is-valid': f.flight_no.touched && !f.flight_no.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['flight_no'].errors" class="invalid-feedback">
+                    <div *ngIf="f['flight_no'].errors.required">Flight No is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="origin">Origin</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-angle-double-up"></i></span></div>
+                        <ng-select
+                          id="origin"
+                          name="origin"
+                          formControlName="origin"
+                          placeholder="Choose an origin"
+                          [options]="origins"
+                          class="custom-select col-md-4"
+                          [allowClear]="true"
+                          style="z-index: 1010"
+                          [ngClass]="{ 'is-invalid': submitted && f.origin.errors, 'is-valid': f.origin.touched && !f.origin.errors }"
+                          required>
+                      </ng-select>
+                  </div>
+                  <div *ngIf="submitted && f['origin'].errors" class="invalid-feedback">
+                    <div *ngIf="f['origin'].errors.required">Origin is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="origin">Destination</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-angle-double-down"></i></span></div>
+                        <ng-select
+                          id="destination"
+                          name="destination"
+                          formControlName="destination"
+                          placeholder="Choose a destination"
+                          [options]="destinations"
+                          class="custom-select col-md-4"
+                          [allowClear]="true"
+                          style="z-index: 1000"
+                          [ngClass]="{ 'is-invalid': submitted && f.destination.errors, 'is-valid': f.destination.touched && !f.destination.errors }"
+                          required>
+                      </ng-select>
+                  </div>
+                  <div *ngIf="submitted && f['destination'].errors" class="invalid-feedback">
+                    <div *ngIf="f['destination'].errors.required">Destination is required</div>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <button class="btn btn-success mr-1  w100px" type="submit" [disabled]="formGroup.invalid">Save</button>
+                  <button
+                    class="btn btn-danger w100px"
+                    type="reset"
+                    [disabled]="formGroup.pristine && !submitted"
+                    (click)="onReset()"
+                    *ngIf="!id">Reset</button>
+                  <a (click)="onCancel()" class="btn btn-secondary mr-1 w100px">Cancel</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

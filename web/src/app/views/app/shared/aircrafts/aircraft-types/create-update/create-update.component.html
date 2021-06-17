@@ -1,0 +1,185 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="icon-note"></i> {{ title }}
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()" class="needs-validation">
+
+                <div class="form-group">
+                  <label class="col-form-label" for="name">Name</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-tag"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="name"
+                          type="text"
+                          formControlName="name"
+                          placeholder="Name"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.name.errors, 'is-valid': f.name.touched && !f.name.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                    <div *ngIf="f['name'].errors.required">Name is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="max_seats">Max Seats</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-options"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="max_seats"
+                          type="number"
+                          min="0"
+                          formControlName="max_seats"
+                          placeholder="Max Seats"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.max_seats.errors, 'is-valid': f.max_seats.touched && !f.max_seats.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['max_seats'].errors" class="invalid-feedback">
+                    <div *ngIf="f['max_seats'].errors.required">Max Seats is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="manufacturer">Manufacturer</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-menu"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="manufacturer"
+                          type="text"
+                          formControlName="manufacturer"
+                          placeholder="Manufacturer"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.manufacturer.errors, 'is-valid': f.manufacturer.touched && !f.manufacturer.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['manufacturer'].errors" class="invalid-feedback">
+                    <div *ngIf="f['manufacturer'].errors.required">Manufacturer is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="iata_code">IATA Code</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-grid"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="iata_code"
+                          type="text"
+                          formControlName="iata_code"
+                          placeholder="IATA Code"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.iata_code.errors, 'is-valid': f.iata_code.touched && !f.iata_code.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['iata_code'].errors" class="invalid-feedback">
+                    <div *ngIf="f['iata_code'].errors.required">IATA Code is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="iata_code">ICAO Code</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-grid"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="icao_code"
+                          type="text"
+                          formControlName="icao_code"
+                          placeholder="ICAO Code"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.icao_code.errors, 'is-valid': f.icao_code.touched && !f.icao_code.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['icao_code'].errors" class="invalid-feedback">
+                    <div *ngIf="f['icao_code'].errors.required">ICAO Code is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="wake">Wake</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-info"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="wake"
+                          type="text"
+                          formControlName="wake"
+                          placeholder="Wake"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.wake.errors, 'is-valid': f.wake.touched && !f.wake.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['wake'].errors" class="invalid-feedback">
+                    <div *ngIf="f['wake'].errors.required">Wake is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="max_range">Max range</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-size-fullscreen"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="max_range"
+                          type="number"
+                          formControlName="max_range"
+                          placeholder="Max range"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.max_range.errors, 'is-valid': f.max_range.touched && !f.max_range.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['max_range'].errors" class="invalid-feedback">
+                    <div *ngIf="f['max_range'].errors.required">Max range is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="max_flight_time_in_min">Max flight time in min</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-shuffle"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="max_flight_time_in_min"
+                          type="number"
+                          formControlName="max_flight_time_in_min"
+                          placeholder="Max flight time in min"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.max_flight_time_in_min.errors, 'is-valid': f.max_flight_time_in_min.touched && !f.max_flight_time_in_min.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['max_flight_time_in_min'].errors" class="invalid-feedback">
+                    <div *ngIf="f['max_flight_time_in_min'].errors.required">Max flight time in min is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group pt-3">
+                  <button class="btn btn-success mr-1  w100px" type="submit" [disabled]="formGroup.invalid">Save</button>
+                  <button
+                    class="btn btn-danger w100px"
+                    type="reset"
+                    [disabled]="formGroup.pristine && !submitted"
+                    (click)="onReset()"
+                    *ngIf="!id">Reset</button>
+                  <a (click)="onCancel()" class="btn btn-secondary mr-1 w100px">Cancel</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

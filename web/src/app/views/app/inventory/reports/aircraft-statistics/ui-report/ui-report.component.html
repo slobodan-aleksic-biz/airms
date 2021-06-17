@@ -1,0 +1,104 @@
+<div class="card print">
+  <div class="card-header">
+    <strong>Aircraft</strong> Statistics
+
+    <a *ngIf="data.length > 0" href="#" class="btn btn-sm btn-secondary float-right mr-1 d-print-none" (click)="onPrint($event)"><i
+        class="fa fa-print"></i> Print</a>
+    <a *ngIf="data.length > 0" href="#" class="btn btn-sm btn-info float-right mr-1 d-print-none" (click)="onSave($event)"><i class="fa fa-save"></i> Save</a>
+  </div>
+  <div class="card-body">
+    <div class="row mb-4">
+
+      <div class="col-sm-4">
+        <h6 class="mb-3">From:</h6>
+        <div><strong>{{ fromDate }}</strong></div>
+      </div>
+      <!--/.col-->
+
+      <div class="col-sm-4">
+        <h6 class="mb-3">To:</h6>
+        <div><strong>{{ toDate }}</strong></div>
+      </div>
+      <!--/.col-->
+
+
+    </div>
+    <!--/.row-->
+
+    <div class="table-responsive-sm">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="center">#</th>
+            <th>Aircraft Reg</th>
+
+            <th class="center">Flight Cycles</th>
+            <th class="right">Flight Hours</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of data; let i = index">
+            <td class="center">{{ i + 1 }}</td>
+            <td class="left">{{ d.aircraft_reg }}</td>
+
+            <td class="right">{{ d.total_cycles }}</td>
+            <td class="right">{{ d.total_hours }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="center"></td>
+            <td class="left"></td>
+
+            <td class="right">{{ totalCycles }}</td>
+            <td class="right">{{ totalHours }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="row">
+
+      <div class="row col-md-12">
+
+        <div class="col-lg-4">
+        </div>
+        <!--/.col-->
+
+        <div class="col-md-4"  *ngIf="barChartDataCycles.length > 0">
+          <div class="card-body">
+            <div class="chart-wrapper">
+              <canvas baseChart class="chart"
+              [datasets]="barChartDataCycles"
+              [labels]="barChartLabelsCycles"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"></canvas>
+            </div>
+          </div>
+        </div>
+        <!--/.col-->
+
+        <div class="col-md-4" *ngIf="barChartDataHours.length > 0">
+          <div class="card-body">
+            <div class="chart-wrapper">
+              <canvas baseChart class="chart"
+              [datasets]="barChartDataHours"
+              [labels]="barChartLabelsHours"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"></canvas>
+            </div>
+          </div>
+        </div>
+        <!--/.col-->
+
+
+      </div>
+
+
+
+    </div>
+    <!--/.row-->
+  </div>
+</div>

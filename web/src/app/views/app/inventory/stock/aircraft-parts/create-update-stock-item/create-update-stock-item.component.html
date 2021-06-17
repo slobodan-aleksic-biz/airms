@@ -1,0 +1,499 @@
+<form
+  [formGroup]="formGroup"
+  novalidate
+  (ngSubmit)="onSubmit()"
+  class="needs-validation"
+>
+  <div class="modal-body">
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-6 ">
+                  <div class="form-group">
+                    <label class="col-form-label" for="init_part_num"
+                      >Initial Part Num *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-tag"></i
+                        ></span>
+                      </div>
+                      <input
+                        class="form-control col-md"
+                        id="init_part_num"
+                        type="text"
+                        formControlName="init_part_num"
+                        placeholder="Part Num"
+                        autocomplete="off"
+                        required
+                        autofocus
+                        [ngClass]="{
+                          'is-invalid':
+                            f.init_part_num.touched && f.init_part_num.errors,
+                          'is-valid':
+                            f.init_part_num.touched && !f.init_part_num.errors
+                        }"
+                      />
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.init_part_num"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.init_part_num.hasError(error.type) &&
+                            (f.init_part_num.dirty || f.init_part_num.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-form-label" for="name">Name *</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-pencil"></i
+                        ></span>
+                      </div>
+                      <input
+                        class="form-control col-md"
+                        id="name"
+                        type="text"
+                        formControlName="name"
+                        placeholder="Name"
+                        autocomplete="off"
+                        required
+                        autofocus
+                        [ngClass]="{
+                          'is-invalid': f.name.touched && f.name.errors,
+                          'is-valid': f.name.touched && !f.name.errors
+                        }"
+                      />
+                    </div>
+                    <div class="error-messages">
+                      <ng-container *ngFor="let error of error_messages.name">
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.name.hasError(error.type) &&
+                            (f.name.dirty || f.name.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-form-label" for="description"
+                      >Description</label
+                    >
+                    <div class="">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="icon-speech"></i
+                          ></span>
+                        </div>
+                        <textarea
+                          class="form-control"
+                          id="description"
+                          type="text"
+                          formControlName="description"
+                          placeholder="Description"
+                          autocomplete="off"
+                          autofocus
+                          rows="6"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.description.errors,
+                            'is-valid':
+                              f.description.touched && !f.description.errors
+                          }"
+                        >
+                        </textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 ">
+                  <div class="form-group">
+                    <label class="col-form-label" for="a_t_a_chapter_id"
+                      >ATA Chapter *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="fa fa-list-alt"></i
+                        ></span>
+                      </div>
+                      <ng-select
+                        id="a_t_a_chapter_id"
+                        name="a_t_a_chapter_id"
+                        formControlName="a_t_a_chapter_id"
+                        placeholder="Choose an ATA Chapter"
+                        [options]="aTAChapters"
+                        class="custom-select col-md-12"
+                        [allowClear]="true"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.a_t_a_chapter_id.touched &&
+                            f.a_t_a_chapter_id.errors,
+                          'is-valid':
+                            f.a_t_a_chapter_id.touched &&
+                            !f.a_t_a_chapter_id.errors
+                        }"
+                        required
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.a_t_a_chapter_id"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.a_t_a_chapter_id.hasError(error.type) &&
+                            (f.a_t_a_chapter_id.dirty ||
+                              f.a_t_a_chapter_id.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-form-label" for="component_category"
+                      >Component Category *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="fa fa-navicon"></i
+                        ></span>
+                      </div>
+                      <ng-select
+                        id="component_category"
+                        name="component_category"
+                        formControlName="component_category"
+                        placeholder="Choose a Component Category"
+                        [options]="componentCategories"
+                        class="custom-select col-md-12"
+                        [allowClear]="true"
+                        (selected)="selectComponentCategory($event)"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.component_category.touched &&
+                            f.component_category.errors,
+                          'is-valid':
+                            f.component_category.touched &&
+                            !f.component_category.errors
+                        }"
+                        required
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.component_category"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.component_category.hasError(error.type) &&
+                            (f.component_category.dirty ||
+                              f.component_category.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div *ngIf="this.f.component_category.value" class="">
+                    <div class="form-group">
+                      <label class="col-form-label" for="component_type"
+                        >Component Type *</label
+                      >
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="fa fa-th"></i
+                          ></span>
+                        </div>
+                        <ng-select
+                          id="component_type"
+                          name="component_type"
+                          formControlName="component_type"
+                          placeholder="Choose a Component Type"
+                          [options]="componentTypes"
+                          class="custom-select col-md-12"
+                          [allowClear]="true"
+                          [ngClass]="{
+                            'is-invalid':
+                              f.component_type.touched &&
+                              f.component_type.errors,
+                            'is-valid':
+                              f.component_type.touched &&
+                              !f.component_type.errors
+                          }"
+                          required
+                        >
+                        </ng-select>
+                      </div>
+                      <div class="error-messages">
+                        <ng-container
+                          *ngFor="let error of error_messages.component_type"
+                        >
+                          <div
+                            class="error-message"
+                            *ngIf="
+                              f.component_type.hasError(error.type) &&
+                              (f.component_type.dirty ||
+                                f.component_type.touched)
+                            "
+                          >
+                            {{ error.message }}
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div
+                      *ngIf="f.component_type.value == 'expendable'"
+                      class="form-group"
+                    >
+                      <div class="row">
+                        <label class="col-form-label col" for="is_consumable"
+                          >Is consumable? *</label
+                        >
+                        <div class="input-group col" style="z-index: 0">
+                          <label
+                            class="switch switch-3d switch-label switch-success ml-auto"
+                          >
+                            <input
+                              type="checkbox"
+                              class="form-control switch-input"
+                              id="is_consumable"
+                              (change)="changeIsConsumable($event)"
+                              formControlName="is_consumable"
+                              [ngClass]="{
+                                'is-invalid':
+                                  submitted && f.is_consumable.errors,
+                                'is-valid': !f.is_consumable.errors
+                              }"
+                            />
+                            <span
+                              class="switch-slider"
+                              data-checked="On"
+                              data-unchecked="Off"
+                            ></span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="error-messages">
+                        <ng-container
+                          *ngFor="let error of error_messages.is_consumable"
+                        >
+                          <div
+                            class="error-message"
+                            *ngIf="
+                              f.is_consumable.hasError(error.type) &&
+                              (f.is_consumable.dirty || f.is_consumable.touched)
+                            "
+                          >
+                            {{ error.message }}
+                          </div>
+                        </ng-container>
+                      </div>
+                      <div *ngIf="!this.f.is_consumable.value" class="row">
+                        <label class="col-form-label col" for="is_recoverable"
+                          >Is recoverable? *</label
+                        >
+                        <div class="input-group col" style="z-index: 0">
+                          <label
+                            class="switch switch-3d switch-label switch-success ml-auto"
+                          >
+                            <input
+                              type="checkbox"
+                              class="form-control switch-input"
+                              id="is_recoverable"
+                              (change)="changeIsConsumable($event)"
+                              formControlName="is_recoverable"
+                              [ngClass]="{
+                                'is-invalid':
+                                  submitted && f.is_recoverable.errors,
+                                'is-valid': !f.is_recoverable.errors
+                              }"
+                            />
+                            <span
+                              class="switch-slider"
+                              data-checked="On"
+                              data-unchecked="Off"
+                            ></span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="error-messages">
+                        <ng-container
+                          *ngFor="let error of error_messages.is_recoverable"
+                        >
+                          <div
+                            class="error-message"
+                            *ngIf="
+                              f.is_recoverable.hasError(error.type) &&
+                              (f.is_recoverable.dirty ||
+                                f.is_recoverable.touched)
+                            "
+                          >
+                            {{ error.message }}
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <label
+                          class="col-form-label col"
+                          for="is_dangerous_goods"
+                          >Is dangerous goods? *</label
+                        >
+                        <div class="input-group col" style="z-index: 0">
+                          <label
+                            class="switch switch-3d switch-label switch-success ml-auto"
+                          >
+                            <input
+                              type="checkbox"
+                              class="form-control switch-input"
+                              id="is_dangerous_goods"
+                              formControlName="is_dangerous_goods"
+                              [ngClass]="{
+                                'is-invalid':
+                                  submitted && f.is_dangerous_goods.errors,
+                                'is-valid': !f.is_dangerous_goods.errors
+                              }"
+                            />
+                            <span
+                              class="switch-slider"
+                              data-checked="On"
+                              data-unchecked="Off"
+                            ></span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="error-messages">
+                        <ng-container
+                          *ngFor="
+                            let error of error_messages.is_dangerous_goods
+                          "
+                        >
+                          <div
+                            class="error-message"
+                            *ngIf="
+                              f.is_dangerous_goods.hasError(error.type) &&
+                              (f.is_dangerous_goods.dirty ||
+                                f.is_dangerous_goods.touched)
+                            "
+                          >
+                            {{ error.message }}
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <label
+                          class="col-form-label col"
+                          for="is_shelf_life_applicable"
+                          >Is shelf life applicable? *</label
+                        >
+                        <div class="input-group col" style="z-index: 0">
+                          <label
+                            class="switch switch-3d switch-label switch-success ml-auto"
+                          >
+                            <input
+                              type="checkbox"
+                              class="form-control switch-input"
+                              id="is_shelf_life_applicable"
+                              formControlName="is_shelf_life_applicable"
+                              [ngClass]="{
+                                'is-invalid':
+                                  submitted &&
+                                  f.is_shelf_life_applicable.errors,
+                                'is-valid': !f.is_shelf_life_applicable.errors
+                              }"
+                            />
+                            <span
+                              class="switch-slider"
+                              data-checked="On"
+                              data-unchecked="Off"
+                            ></span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="error-messages">
+                        <ng-container
+                          *ngFor="
+                            let error of error_messages.is_shelf_life_applicable
+                          "
+                        >
+                          <div
+                            class="error-message"
+                            *ngIf="
+                              f.is_shelf_life_applicable.hasError(error.type) &&
+                              (f.is_shelf_life_applicable.dirty ||
+                                f.is_shelf_life_applicable.touched)
+                            "
+                          >
+                            {{ error.message }}
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer py-2">
+    <a (click)="onCancel($event)" class="btn btn-secondary mr-1 btn-sm w80px"
+      >Cancel</a
+    >
+    <button
+      class="btn btn-danger btn-sm w80px"
+      type="reset"
+      [disabled]="formGroup.pristine && !submitted"
+      (click)="onReset($event)"
+      *ngIf="!id"
+    >
+      Reset
+    </button>
+    <button
+      class="btn btn-primary mr-1 btn-sm w80px"
+      type="submit"
+      [disabled]="formGroup.invalid"
+    >
+      Save
+    </button>
+  </div>
+</form>

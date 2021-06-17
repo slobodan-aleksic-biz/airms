@@ -1,0 +1,1968 @@
+<form
+  [formGroup]="formGroup"
+  novalidate
+  (ngSubmit)="onSubmit()"
+  class="needs-validation"
+>
+  <div class="modal-body">
+    <div class="animated fadeIn">
+      <div *ngIf="action === 'stock'">
+        <div class="row border-bottom pb-2">
+          <label class="col-form-label col-6"
+            >Did the part/article come from MRO or via STOCK TRANSFER?</label
+          >
+          <div class="input-group col-6" style="z-index: 0">
+            <label class="switch switch-3d switch-label switch-success ml-auto">
+              <input
+                type="checkbox"
+                formControlName="did_it_come_from_mro_or_st"
+                class="form-control switch-input"
+                [checked]="isPartOrArticleFromMro"
+                (change)="isPartOrArticleFromMroToggle($event)"
+              />
+              <span
+                class="switch-slider"
+                data-checked="On"
+                data-unchecked="Off"
+              ></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="action == 'stock' && !isPartOrArticleFromMro" class="row">
+        <div class="col-md-12">
+          <div class="row" *ngIf="bin">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="bin">BIN</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-tag"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="text"
+                    placeholder="BIN"
+                    autocomplete="off"
+                    [value]="bin"
+                    autofocus
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="stockItem.component_type !== 'expendable'" class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="time_since_new"
+                  >Time Since New (TSN)</label
+                >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-tag"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="number"
+                    formControlName="time_since_new"
+                    placeholder="Time Since New (TSN)"
+                    autocomplete="off"
+                    [min]="0"
+                    autofocus
+                    [ngClass]="{
+                      'is-invalid':
+                        f.time_since_new.touched && f.time_since_new.errors,
+                      'is-valid':
+                        f.time_since_new.touched && !f.time_since_new.errors
+                    }"
+                  />
+                </div>
+                <!-- <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.time_since_new">
+                      <div class="error-message"
+                        *ngIf="f.time_since_new.hasError(error.type) && (f.time_since_new.dirty || f.time_since_new.touched)">
+                        {{ error.message }}
+                      </div>
+                    </ng-container>
+                  </div> -->
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label" for="cycles_since_new"
+                  >Cycles Since New (CSN)</label
+                >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-tag"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="number"
+                    formControlName="cycles_since_new"
+                    placeholder="Cycles Since New (CSN)"
+                    autocomplete="off"
+                    [min]="0"
+                    autofocus
+                    [ngClass]="{
+                      'is-invalid':
+                        f.cycles_since_new.touched && f.cycles_since_new.errors,
+                      'is-valid':
+                        f.cycles_since_new.touched && !f.cycles_since_new.errors
+                    }"
+                  />
+                </div>
+                <!-- <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.cycles_since_new">
+                      <div class="error-message"
+                        *ngIf="f.cycles_since_new.hasError(error.type) && (f.cycles_since_new.dirty || f.cycles_since_new.touched)">
+                        {{ error.message }}
+                      </div>
+                    </ng-container>
+                  </div> -->
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label" for="days_since_new"
+                  >Days Since New (DSN)</label
+                >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-tag"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="number"
+                    formControlName="days_since_new"
+                    placeholder="Days Since New (DSN)"
+                    autocomplete="off"
+                    [min]="0"
+                    autofocus
+                    [ngClass]="{
+                      'is-invalid':
+                        f.days_since_new.touched && f.days_since_new.errors,
+                      'is-valid':
+                        f.days_since_new.touched && !f.days_since_new.errors
+                    }"
+                  />
+                </div>
+                <!-- <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.days_since_new">
+                      <div class="error-message"
+                        *ngIf="f.days_since_new.hasError(error.type) && (f.days_since_new.dirty || f.days_since_new.touched)">
+                        {{ error.message }}
+                      </div>
+                    </ng-container>
+                  </div> -->
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="time_since_overhaul"
+                  >Time Since Overhaul (TSO)</label
+                >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-tag"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="number"
+                    formControlName="time_since_overhaul"
+                    placeholder="Time Since Overhaul (TSO)"
+                    autocomplete="off"
+                    [min]="0"
+                    autofocus
+                    [ngClass]="{
+                      'is-invalid':
+                        f.time_since_overhaul.touched &&
+                        f.time_since_overhaul.errors,
+                      'is-valid':
+                        f.time_since_overhaul.touched &&
+                        !f.time_since_overhaul.errors
+                    }"
+                  />
+                </div>
+                <!-- <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.time_since_overhaul">
+                      <div class="error-message"
+                        *ngIf="f.time_since_overhaul.hasError(error.type) && (f.time_since_overhaul.dirty || f.time_since_overhaul.touched)">
+                        {{ error.message }}
+                      </div>
+                    </ng-container>
+                  </div> -->
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label" for="cycles_since_overhaul"
+                  >Cycles Since Overhaul (CSO)</label
+                >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-tag"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="number"
+                    formControlName="cycles_since_overhaul"
+                    placeholder="Cycles Since Overhaul (CSO)"
+                    autocomplete="off"
+                    [min]="0"
+                    autofocus
+                    [ngClass]="{
+                      'is-invalid':
+                        f.cycles_since_overhaul.touched &&
+                        f.cycles_since_overhaul.errors,
+                      'is-valid':
+                        f.cycles_since_overhaul.touched &&
+                        !f.cycles_since_overhaul.errors
+                    }"
+                  />
+                </div>
+                <!-- <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.cycles_since_overhaul">
+                      <div class="error-message"
+                        *ngIf="f.cycles_since_overhaul.hasError(error.type) && (f.cycles_since_overhaul.dirty || f.cycles_since_overhaul.touched)">
+                        {{ error.message }}
+                      </div>
+                    </ng-container>
+                  </div> -->
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label" for="days_since_overhaul"
+                  >Days Since Overhaul (DSN)</label
+                >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-tag"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="number"
+                    formControlName="days_since_overhaul"
+                    placeholder="Days Since Overhaul (DSO)"
+                    autocomplete="off"
+                    [min]="0"
+                    autofocus
+                    [ngClass]="{
+                      'is-invalid':
+                        f.days_since_overhaul.touched &&
+                        f.days_since_overhaul.errors,
+                      'is-valid':
+                        f.days_since_overhaul.touched &&
+                        !f.days_since_overhaul.errors
+                    }"
+                  />
+                </div>
+                <!-- <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.days_since_overhaul">
+                      <div class="error-message"
+                        *ngIf="f.days_since_overhaul.hasError(error.type) && (f.days_since_overhaul.dirty || f.days_since_overhaul.touched)">
+                        {{ error.message }}
+                      </div>
+                    </ng-container>
+                  </div> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div
+              *ngIf="stockItem.component_type !== 'expendable'"
+              class="col-md-4"
+            >
+              <div class="form-group">
+                <label class="col-form-label" for="part_num">Part Num</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-pencil"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="text"
+                    formControlName="part_num"
+                    placeholder="Part Num"
+                    autocomplete="off"
+                    required
+                    [min]="0"
+                    autofocus
+                    [ngClass]="{
+                      'is-invalid': f.part_num.touched && f.part_num.errors,
+                      'is-valid': f.part_num.touched && !f.part_num.errors
+                    }"
+                  />
+                </div>
+                <div class="error-messages">
+                  <ng-container *ngFor="let error of error_messages.part_num">
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        f.part_num.hasError(error.type) &&
+                        (f.part_num.dirty || f.part_num.touched)
+                      "
+                    >
+                      {{ error.message }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="invoice_ref"
+                  >Invoice Ref *</label
+                >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-pencil"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="text"
+                    formControlName="invoice_ref"
+                    placeholder="Invoice Ref"
+                    autocomplete="off"
+                    required
+                    [min]="0"
+                    autofocus
+                    [ngClass]="{
+                      'is-invalid':
+                        f.invoice_ref.touched && f.invoice_ref.errors,
+                      'is-valid': f.invoice_ref.touched && !f.invoice_ref.errors
+                    }"
+                  />
+                </div>
+                <div class="error-messages">
+                  <ng-container
+                    *ngFor="let error of error_messages.invoice_ref"
+                  >
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        f.invoice_ref.hasError(error.type) &&
+                        (f.invoice_ref.dirty || f.invoice_ref.touched)
+                      "
+                    >
+                      {{ error.message }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="stock_id"
+                  >Received by Technician *</label
+                >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-clock"></i
+                    ></span>
+                  </div>
+                  <ng-select
+                    name="technician_id"
+                    formControlName="technician_id"
+                    placeholder="Choose a technician"
+                    [options]="technicians"
+                    class="custom-select col-md-12"
+                    [allowClear]="true"
+                    [ngClass]="{
+                      'is-invalid':
+                        f.technician_id.touched && f.technician_id.errors,
+                      'is-valid':
+                        f.technician_id.touched && !f.technician_id.errors
+                    }"
+                    required
+                  >
+                  </ng-select>
+                </div>
+                <div class="error-messages">
+                  <ng-container
+                    *ngFor="let error of error_messages.technician_id"
+                  >
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        f.technician_id.hasError(error.type) &&
+                        (f.technician_id.dirty || f.technician_id.touched)
+                      "
+                    >
+                      {{ error.message }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div
+                *ngIf="this.stockItem.component_type === 'expendable'"
+                class="form-group"
+              >
+                <label class="col-form-label" for="quantity">Quantity *</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-pencil"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="number"
+                    formControlName="quantity"
+                    placeholder="Quantity"
+                    autocomplete="off"
+                    required
+                    [min]="0"
+                    [max]="maxQuantity"
+                    (click)="onQuantity($event)"
+                    autofocus
+                    [ngClass]="{
+                      'is-invalid': f.quantity.touched && f.quantity.errors,
+                      'is-valid': f.quantity.touched && !f.quantity.errors
+                    }"
+                  />
+                  <div *ngIf="lineItems && lastLineItem.id" class="input-group-prepend">
+                    <span class="input-group-text">
+                      <span *ngIf="(action === 'mro' || action === 'service' || action === 'transfer_to')">
+                        In Stock {{ totalQtyBalance - f.quantity.value }}
+                      </span>
+                      <span *ngIf="action !== 'mro' && action !== 'service' && action !== 'transfer_to'">
+                        Out of Stock
+                        {{ totalOutputQty - f.quantity.value }}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div class="error-messages">
+                  <ng-container *ngFor="let error of error_messages.quantity">
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        f.quantity.hasError(error.type) &&
+                        (f.quantity.dirty || f.quantity.touched)
+                      "
+                    >
+                      {{ error.message }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="stock_id">Stock *</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-clock"></i
+                    ></span>
+                  </div>
+                  <ng-select
+                    name="stock_id"
+                    formControlName="stock_id"
+                    placeholder="Choose a Stock"
+                    [options]="stocks"
+                    class="custom-select col-md-12"
+                    [allowClear]="true"
+                    [ngClass]="{
+                      'is-invalid': f.stock_id.touched && f.stock_id.errors,
+                      'is-valid': f.stock_id.touched && !f.stock_id.errors
+                    }"
+                    required
+                  >
+                  </ng-select>
+                </div>
+                <div class="error-messages">
+                  <ng-container *ngFor="let error of error_messages.stock_id">
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        f.stock_id.hasError(error.type) &&
+                        (f.stock_id.dirty || f.stock_id.touched)
+                      "
+                    >
+                      {{ error.message }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="stock_position"
+                  >Stock Position *</label
+                >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-pencil"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="text"
+                    formControlName="stock_position"
+                    placeholder="Stock Position"
+                    autocomplete="off"
+                    required
+                    autofocus
+                    [ngClass]="{
+                      'is-invalid':
+                        f.stock_position.touched && f.stock_position.errors,
+                      'is-valid':
+                        f.stock_position.touched && !f.stock_position.errors
+                    }"
+                  />
+                </div>
+                <div class="error-messages">
+                  <ng-container
+                    *ngFor="let error of error_messages.stock_position"
+                  >
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        f.stock_position.hasError(error.type) &&
+                        (f.stock_position.dirty || f.stock_position.touched)
+                      "
+                    >
+                      {{ error.message }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label" for="certificate_date"
+                      >Certificate Date
+                      <span>{{
+                        stockItem.is_shelf_life_applicable ? "*" : ""
+                      }}</span></label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-tag"></i
+                        ></span>
+                      </div>
+                      <input
+                        class="form-control col-md"
+                        type="text"
+                        formControlName="certificate_date"
+                        placeholder="Certificate Date"
+                        autocomplete="off"
+                        autofocus
+                        style="cursor: pointer"
+                        #dp="bsDatepicker"
+                        bsDatepicker
+                        [bsConfig]="bsConfig"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.certificate_date.touched &&
+                            f.certificate_date.errors,
+                          'is-valid':
+                            f.certificate_date.touched &&
+                            !f.certificate_date.errors
+                        }"
+                      />
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.certificate_date"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.certificate_date.hasError(error.type) &&
+                            (f.certificate_date.dirty ||
+                              f.certificate_date.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label" for="input_date"
+                      >Input Date *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-tag"></i
+                        ></span>
+                      </div>
+                      <input
+                        class="form-control col-md"
+                        type="text"
+                        formControlName="input_date"
+                        placeholder="Input Date"
+                        autocomplete="off"
+                        required
+                        autofocus
+                        style="cursor: pointer"
+                        #dp="bsDatepicker"
+                        bsDatepicker
+                        [minDate]="minDate"
+                        (bsValueChange)="onInputDateValueChange($event)"
+                        [bsConfig]="bsConfig"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.input_date.touched && f.input_date.errors,
+                          'is-valid':
+                            f.input_date.touched && !f.input_date.errors
+                        }"
+                      />
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.input_date"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.input_date.hasError(error.type) &&
+                            (f.input_date.dirty || f.input_date.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label" for="condition"
+                      >Condition *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-clock"></i
+                        ></span>
+                      </div>
+                      <ng-select
+                        name="condition"
+                        formControlName="condition"
+                        placeholder="Choose a Condition"
+                        [options]="conditions"
+                        class="custom-select col-md-12"
+                        [allowClear]="true"
+                        (selected)="selectCondition($event)"
+                        (deselected)="deselectCondition($event)"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.condition.touched && f.condition.errors,
+                          'is-valid': f.condition.touched && !f.condition.errors
+                        }"
+                        required
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.condition"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.condition.hasError(error.type) &&
+                            (f.condition.dirty || f.condition.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div
+                    *ngIf="
+                      stockItem.component_type !== 'expendable' &&
+                      conditionVal === 'unserviceable'
+                    "
+                    class="form-group"
+                  >
+                    <label class="col-form-label" for="unserviceable_condition"
+                      >Unserviceable condition *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-clock"></i
+                        ></span>
+                      </div>
+                      <ng-select
+                        name="unserviceable_condition"
+                        formControlName="unserviceable_condition"
+                        placeholder="Choose a Unserviceable condition"
+                        [options]="unserviceableConditions"
+                        class="custom-select col-md-12"
+                        [allowClear]="true"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.unserviceable_condition.touched &&
+                            f.unserviceable_condition.errors,
+                          'is-valid':
+                            f.unserviceable_condition.touched &&
+                            !f.unserviceable_condition.errors
+                        }"
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="
+                          let error of error_messages.unserviceable_condition
+                        "
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.unserviceable_condition.hasError(error.type) &&
+                            (f.unserviceable_condition.dirty ||
+                              f.unserviceable_condition.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="note">Note</label>
+                <div class="">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="icon-speech"></i
+                      ></span>
+                    </div>
+                    <textarea
+                      class="form-control"
+                      type="text"
+                      formControlName="note"
+                      placeholder="Note"
+                      autocomplete="off"
+                      autofocus
+                      rows="5"
+                      [ngClass]="{
+                        'is-invalid': f.note.touched && f.note.errors,
+                        'is-valid': f.note.touched && !f.note.errors
+                      }"
+                    >
+                    </textarea>
+                  </div>
+                  <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.note">
+                      <div
+                        class="error-message"
+                        *ngIf="
+                          f.note.hasError(error.type) &&
+                          (f.note.dirty || f.note.touched)
+                        "
+                      >
+                        {{ error.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div
+                *ngIf="stockItem.is_shelf_life_applicable"
+                class="form-group"
+              >
+                <label class="col-form-label" for="shelf_life"
+                  >Shelf Life *</label
+                >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-pencil"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="number"
+                    formControlName="shelf_life"
+                    placeholder="Shelf Life"
+                    autocomplete="off"
+                    required
+                    autofocus
+                    [min]="0"
+                    [ngClass]="{
+                      'is-invalid': f.shelf_life.touched && f.shelf_life.errors,
+                      'is-valid': f.shelf_life.touched && !f.shelf_life.errors
+                    }"
+                  />
+                </div>
+                <div class="error-messages">
+                  <ng-container *ngFor="let error of error_messages.shelf_life">
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        f.shelf_life.hasError(error.type) &&
+                        (f.shelf_life.dirty || f.shelf_life.touched)
+                      "
+                    >
+                      {{ error.message }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div
+                *ngIf="stockItem.is_shelf_life_applicable"
+                class="form-group"
+              >
+                <label class="col-form-label" for="shelf_life_alarm"
+                  >Shelf Life Alarm *</label
+                >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-pencil"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="number"
+                    formControlName="shelf_life_alarm"
+                    placeholder="Shelf Life Alarm"
+                    autocomplete="off"
+                    required
+                    autofocus
+                    [min]="0"
+                    [ngClass]="{
+                      'is-invalid':
+                        f.shelf_life_alarm.touched && f.shelf_life_alarm.errors,
+                      'is-valid':
+                        f.shelf_life_alarm.touched && !f.shelf_life_alarm.errors
+                    }"
+                  />
+                </div>
+                <div class="error-messages">
+                  <ng-container
+                    *ngFor="let error of error_messages.shelf_life_alarm"
+                  >
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        f.shelf_life_alarm.hasError(error.type) &&
+                        (f.shelf_life_alarm.dirty || f.shelf_life_alarm.touched)
+                      "
+                    >
+                      {{ error.message }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="action == 'stock' && isPartOrArticleFromMro" class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label" for="input_date"
+                      >Input Date *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-tag"></i
+                        ></span>
+                      </div>
+                      <input
+                        class="form-control col-md"
+                        type="text"
+                        formControlName="input_date"
+                        placeholder="Input Date"
+                        autocomplete="off"
+                        required
+                        autofocus
+                        style="cursor: pointer"
+                        #dp="bsDatepicker"
+                        bsDatepicker
+                        [minDate]="minDate"
+                        (bsValueChange)="onInputDateValueChange($event)"
+                        [bsConfig]="bsConfig"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.input_date.touched && f.input_date.errors,
+                          'is-valid':
+                            f.input_date.touched && !f.input_date.errors
+                        }"
+                      />
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.input_date"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.input_date.hasError(error.type) &&
+                            (f.input_date.dirty || f.input_date.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label" for="stock_id"
+                      >Received by Technician *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-clock"></i
+                        ></span>
+                      </div>
+                      <ng-select
+                        name="technician_id"
+                        formControlName="technician_id"
+                        placeholder="Choose a technician"
+                        [options]="technicians"
+                        class="custom-select col-md-12"
+                        [allowClear]="true"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.technician_id.touched && f.technician_id.errors,
+                          'is-valid':
+                            f.technician_id.touched && !f.technician_id.errors
+                        }"
+                        required
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.technician_id"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.technician_id.hasError(error.type) &&
+                            (f.technician_id.dirty || f.technician_id.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label" for="condition"
+                      >Condition *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-clock"></i
+                        ></span>
+                      </div>
+                      <ng-select
+                        name="condition"
+                        formControlName="condition"
+                        placeholder="Choose a Condition"
+                        [options]="conditions"
+                        class="custom-select col-md-12"
+                        [allowClear]="true"
+                        (selected)="selectCondition($event)"
+                        (deselected)="deselectCondition($event)"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.condition.touched && f.condition.errors,
+                          'is-valid': f.condition.touched && !f.condition.errors
+                        }"
+                        required
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.condition"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.condition.hasError(error.type) &&
+                            (f.condition.dirty || f.condition.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div
+                    *ngIf="
+                      stockItem.component_type !== 'expendable' &&
+                      conditionVal === 'unserviceable'
+                    "
+                    class="form-group"
+                  >
+                    <label class="col-form-label" for="unserviceable_condition"
+                      >Unserviceable condition *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-clock"></i
+                        ></span>
+                      </div>
+                      <ng-select
+                        name="unserviceable_condition"
+                        formControlName="unserviceable_condition"
+                        placeholder="Choose a Unserviceable condition"
+                        [options]="unserviceableConditions"
+                        class="custom-select col-md-12"
+                        [allowClear]="true"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.unserviceable_condition.touched &&
+                            f.unserviceable_condition.errors,
+                          'is-valid':
+                            f.unserviceable_condition.touched &&
+                            !f.unserviceable_condition.errors
+                        }"
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="
+                          let error of error_messages.unserviceable_condition
+                        "
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.unserviceable_condition.hasError(error.type) &&
+                            (f.unserviceable_condition.dirty ||
+                              f.unserviceable_condition.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="note">Note</label>
+                <div class="">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="icon-speech"></i
+                      ></span>
+                    </div>
+                    <textarea
+                      class="form-control"
+                      type="text"
+                      formControlName="note"
+                      placeholder="Note"
+                      autocomplete="off"
+                      autofocus
+                      rows="5"
+                      [ngClass]="{
+                        'is-invalid': f.note.touched && f.note.errors,
+                        'is-valid': f.note.touched && !f.note.errors
+                      }"
+                    >
+                    </textarea>
+                  </div>
+                  <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.note">
+                      <div
+                        class="error-message"
+                        *ngIf="
+                          f.note.hasError(error.type) &&
+                          (f.note.dirty || f.note.touched)
+                        "
+                      >
+                        {{ error.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="stock_id">Stock *</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-clock"></i
+                    ></span>
+                  </div>
+                  <ng-select
+                    name="stock_id"
+                    formControlName="stock_id"
+                    placeholder="Choose a Stock"
+                    [options]="stocks"
+                    class="custom-select col-md-12"
+                    [allowClear]="true"
+                    [ngClass]="{
+                      'is-invalid': f.stock_id.touched && f.stock_id.errors,
+                      'is-valid': f.stock_id.touched && !f.stock_id.errors
+                    }"
+                    required
+                  >
+                  </ng-select>
+                </div>
+                <div class="error-messages">
+                  <ng-container *ngFor="let error of error_messages.stock_id">
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        f.stock_id.hasError(error.type) &&
+                        (f.stock_id.dirty || f.stock_id.touched)
+                      "
+                    >
+                      {{ error.message }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="stock_position"
+                  >Stock Position *</label
+                >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-pencil"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="text"
+                    formControlName="stock_position"
+                    placeholder="Stock Position"
+                    autocomplete="off"
+                    required
+                    autofocus
+                    [ngClass]="{
+                      'is-invalid':
+                        f.stock_position.touched && f.stock_position.errors,
+                      'is-valid':
+                        f.stock_position.touched && !f.stock_position.errors
+                    }"
+                  />
+                </div>
+                <div class="error-messages">
+                  <ng-container
+                    *ngFor="let error of error_messages.stock_position"
+                  >
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        f.stock_position.hasError(error.type) &&
+                        (f.stock_position.dirty || f.stock_position.touched)
+                      "
+                    >
+                      {{ error.message }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div
+                *ngIf="this.stockItem.component_type === 'expendable'"
+                class="form-group"
+              >
+                <label class="col-form-label" for="quantity">Quantity *</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="icon-pencil"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control col-md"
+                    type="number"
+                    formControlName="quantity"
+                    placeholder="Quantity"
+                    autocomplete="off"
+                    required
+                    [min]="0"
+                    [max]="maxQuantity"
+                    (click)="onQuantity($event)"
+                    autofocus
+                    [ngClass]="{
+                      'is-invalid': f.quantity.touched && f.quantity.errors,
+                      'is-valid': f.quantity.touched && !f.quantity.errors
+                    }"
+                  />
+                  <div *ngIf="lineItems && lastLineItem.id" class="input-group-prepend">
+                    <span class="input-group-text">
+                      <span *ngIf="action === 'mro'">
+                        In Stock
+                        {{ totalQtyBalance - f.quantity.value }}
+                      </span>
+                      <span *ngIf="action !== 'mro'">
+                        Out of Stock
+                        {{ totalOutputQty - f.quantity.value }}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div class="error-messages">
+                  <ng-container *ngFor="let error of error_messages.quantity">
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        f.quantity.hasError(error.type) &&
+                        (f.quantity.dirty || f.quantity.touched)
+                      "
+                    >
+                      {{ error.message }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="action == 'mro'" class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label" for="input_date"
+                      >Input Date *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-tag"></i
+                        ></span>
+                      </div>
+                      <input
+                        class="form-control col-md"
+                        type="text"
+                        formControlName="input_date"
+                        placeholder="Input Date"
+                        autocomplete="off"
+                        required
+                        autofocus
+                        style="cursor: pointer"
+                        #dp="bsDatepicker"
+                        bsDatepicker
+                        [minDate]="minDate"
+                        (bsValueChange)="onInputDateValueChange($event)"
+                        [bsConfig]="bsConfig"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.input_date.touched && f.input_date.errors,
+                          'is-valid':
+                            f.input_date.touched && !f.input_date.errors
+                        }"
+                      />
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.input_date"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.input_date.hasError(error.type) &&
+                            (f.input_date.dirty || f.input_date.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label" for="stock_id"
+                      >Received by Technician *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-clock"></i
+                        ></span>
+                      </div>
+                      <ng-select
+                        name="technician_id"
+                        formControlName="technician_id"
+                        placeholder="Choose a technician"
+                        [options]="technicians"
+                        class="custom-select col-md-12"
+                        [allowClear]="true"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.technician_id.touched && f.technician_id.errors,
+                          'is-valid':
+                            f.technician_id.touched && !f.technician_id.errors
+                        }"
+                        required
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.technician_id"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.technician_id.hasError(error.type) &&
+                            (f.technician_id.dirty || f.technician_id.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div
+                    *ngIf="this.stockItem.component_type === 'expendable'"
+                    class="form-group"
+                  >
+                    <label class="col-form-label" for="quantity"
+                      >Quantity *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-pencil"></i
+                        ></span>
+                      </div>
+                      <input
+                        class="form-control col-md"
+                        type="number"
+                        formControlName="quantity"
+                        placeholder="Quantity"
+                        autocomplete="off"
+                        required
+                        [min]="0"
+                        [max]="maxQuantity"
+                        (click)="onQuantity($event)"
+                        autofocus
+                        [ngClass]="{
+                          'is-invalid': f.quantity.touched && f.quantity.errors,
+                          'is-valid': f.quantity.touched && !f.quantity.errors
+                        }"
+                      />
+                      <div *ngIf="lineItems && lastLineItem.id" class="input-group-prepend">
+                        <span class="input-group-text">
+                          <span *ngIf="action === 'mro'">
+                            In Stock
+                            {{ totalQtyBalance - f.quantity.value }}
+                          </span>
+                          <span *ngIf="action !== 'mro'">
+                            Out of Stock
+                            {{ totalOutputQty - f.quantity.value }}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.quantity"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.quantity.hasError(error.type) &&
+                            (f.quantity.dirty || f.quantity.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="note">Note</label>
+                <div class="">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="icon-speech"></i
+                      ></span>
+                    </div>
+                    <textarea
+                      class="form-control"
+                      type="text"
+                      formControlName="note"
+                      placeholder="Note"
+                      autocomplete="off"
+                      autofocus
+                      rows="5"
+                      [ngClass]="{
+                        'is-invalid': f.note.touched && f.note.errors,
+                        'is-valid': f.note.touched && !f.note.errors
+                      }"
+                    >
+                    </textarea>
+                  </div>
+                  <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.note">
+                      <div
+                        class="error-message"
+                        *ngIf="
+                          f.note.hasError(error.type) &&
+                          (f.note.dirty || f.note.touched)
+                        "
+                      >
+                        {{ error.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="action == 'service'" class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label" for="input_date"
+                      >Input Date *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-tag"></i
+                        ></span>
+                      </div>
+                      <input
+                        class="form-control col-md"
+                        type="text"
+                        formControlName="input_date"
+                        placeholder="Input Date"
+                        autocomplete="off"
+                        required
+                        autofocus
+                        style="cursor: pointer"
+                        #dp="bsDatepicker"
+                        bsDatepicker
+                        [minDate]="minDate"
+                        (bsValueChange)="onInputDateValueChange($event)"
+                        [bsConfig]="bsConfig"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.input_date.touched && f.input_date.errors,
+                          'is-valid':
+                            f.input_date.touched && !f.input_date.errors
+                        }"
+                      />
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.input_date"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.input_date.hasError(error.type) &&
+                            (f.input_date.dirty || f.input_date.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label" for="shop_id">Shop *</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-clock"></i
+                        ></span>
+                      </div>
+                      <ng-select
+                        name="shop_id"
+                        formControlName="shop_id"
+                        placeholder="Choose a shop"
+                        [options]="shops"
+                        class="custom-select col-md-12"
+                        [allowClear]="true"
+                        [ngClass]="{
+                          'is-invalid': f.shop_id.touched && f.shop_id.errors,
+                          'is-valid': f.shop_id.touched && !f.shop_id.errors
+                        }"
+                        required
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.shop_id"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.shop_id.hasError(error.type) &&
+                            (f.shop_id.dirty || f.shop_id.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div
+                    *ngIf="this.stockItem.component_type === 'expendable'"
+                    class="form-group"
+                  >
+                    <label class="col-form-label" for="quantity"
+                      >Quantity *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-pencil"></i
+                        ></span>
+                      </div>
+                      <input
+                        class="form-control col-md"
+                        type="number"
+                        formControlName="quantity"
+                        placeholder="Quantity"
+                        autocomplete="off"
+                        required
+                        [min]="0"
+                        [max]="maxQuantity"
+                        (click)="onQuantity($event)"
+                        autofocus
+                        [ngClass]="{
+                          'is-invalid': f.quantity.touched && f.quantity.errors,
+                          'is-valid': f.quantity.touched && !f.quantity.errors
+                        }"
+                      />
+                      <div *ngIf="lineItems && lastLineItem.id" class="input-group-prepend">
+                        <span class="input-group-text">
+                          <span *ngIf="action === 'service'">
+                            In Stock
+                            {{ totalQtyBalance - f.quantity.value }}
+                          </span>
+                          <span *ngIf="action !== 'service'">
+                            Out of Stock
+                            {{ totalOutputQty - f.quantity.value }}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.quantity"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.quantity.hasError(error.type) &&
+                            (f.quantity.dirty || f.quantity.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="note">Note</label>
+                <div class="">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="icon-speech"></i
+                      ></span>
+                    </div>
+                    <textarea
+                      class="form-control"
+                      type="text"
+                      formControlName="note"
+                      placeholder="Note"
+                      autocomplete="off"
+                      autofocus
+                      rows="5"
+                      [ngClass]="{
+                        'is-invalid': f.note.touched && f.note.errors,
+                        'is-valid': f.note.touched && !f.note.errors
+                      }"
+                    >
+                    </textarea>
+                  </div>
+                  <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.note">
+                      <div
+                        class="error-message"
+                        *ngIf="
+                          f.note.hasError(error.type) &&
+                          (f.note.dirty || f.note.touched)
+                        "
+                      >
+                        {{ error.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="action == 'transfer_to'" class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label" for="input_date"
+                      >Input Date *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-tag"></i
+                        ></span>
+                      </div>
+                      <input
+                        class="form-control col-md"
+                        type="text"
+                        formControlName="input_date"
+                        placeholder="Input Date"
+                        autocomplete="off"
+                        required
+                        autofocus
+                        style="cursor: pointer"
+                        #dp="bsDatepicker"
+                        bsDatepicker
+                        [minDate]="minDate"
+                        (bsValueChange)="onInputDateValueChange($event)"
+                        [bsConfig]="bsConfig"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.input_date.touched && f.input_date.errors,
+                          'is-valid':
+                            f.input_date.touched && !f.input_date.errors
+                        }"
+                      />
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.input_date"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.input_date.hasError(error.type) &&
+                            (f.input_date.dirty || f.input_date.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label" for="stock_id"
+                      >Transfer to *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-clock"></i
+                        ></span>
+                      </div>
+                      <ng-select
+                        name="stock_id"
+                        formControlName="stock_id"
+                        placeholder="Choose a Stock"
+                        [options]="stocks"
+                        class="custom-select col-md-12"
+                        [allowClear]="true"
+                        [ngClass]="{
+                          'is-invalid': f.stock_id.touched && f.stock_id.errors,
+                          'is-valid': f.stock_id.touched && !f.stock_id.errors
+                        }"
+                        required
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.stock_id"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.stock_id.hasError(error.type) &&
+                            (f.stock_id.dirty || f.stock_id.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div
+                    *ngIf="this.stockItem.component_type === 'expendable'"
+                    class="form-group"
+                  >
+                    <label class="col-form-label" for="quantity"
+                      >Quantity *</label
+                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="icon-pencil"></i
+                        ></span>
+                      </div>
+                      <input
+                        class="form-control col-md"
+                        type="number"
+                        formControlName="quantity"
+                        placeholder="Quantity"
+                        autocomplete="off"
+                        required
+                        [min]="0"
+                        [max]="maxQuantity"
+                        (click)="onQuantity($event)"
+                        autofocus
+                        [ngClass]="{
+                          'is-invalid': f.quantity.touched && f.quantity.errors,
+                          'is-valid': f.quantity.touched && !f.quantity.errors
+                        }"
+                      />
+                      <div *ngIf="lineItems && lastLineItem.id" class="input-group-prepend">
+                        <span class="input-group-text">
+                          <span *ngIf="action === 'transfer_to'">
+                            In Stock
+                            {{ totalQtyBalance - f.quantity.value }}
+                          </span>
+                          <span *ngIf="action !== 'transfer_to'">
+                            Out of Stock
+                            {{ totalOutputQty - f.quantity.value }}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="error-messages">
+                      <ng-container
+                        *ngFor="let error of error_messages.quantity"
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            f.quantity.hasError(error.type) &&
+                            (f.quantity.dirty || f.quantity.touched)
+                          "
+                        >
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="col-form-label" for="note">Note</label>
+                <div class="">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="icon-speech"></i
+                      ></span>
+                    </div>
+                    <textarea
+                      class="form-control"
+                      type="text"
+                      formControlName="note"
+                      placeholder="Note"
+                      autocomplete="off"
+                      autofocus
+                      rows="5"
+                      [ngClass]="{
+                        'is-invalid': f.note.touched && f.note.errors,
+                        'is-valid': f.note.touched && !f.note.errors
+                      }"
+                    >
+                    </textarea>
+                  </div>
+                  <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.note">
+                      <div
+                        class="error-message"
+                        *ngIf="
+                          f.note.hasError(error.type) &&
+                          (f.note.dirty || f.note.touched)
+                        "
+                      >
+                        {{ error.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer py-2">
+    <a (click)="onCancel($event)" class="btn btn-secondary mr-1 btn-sm w80px"
+      >Cancel</a
+    >
+    <button
+      class="btn btn-danger btn-sm w80px"
+      type="reset"
+      [disabled]="formGroup.pristine && !submitted"
+      (click)="onReset($event)"
+      *ngIf="!id"
+    >
+      Reset
+    </button>
+    <button
+      class="btn btn-secondary mr-1 btn-sm w80px"
+      type="submit"
+      [disabled]="formGroup.invalid"
+    >
+      Save
+    </button>
+  </div>
+</form>

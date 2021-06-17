@@ -1,0 +1,22 @@
+<div class="cardx bg-dark" *ngIf="pdf">
+  <div class="card-bodyx p-1" style="height:80vh">
+    <ng2-pdfjs-viewer
+      *ngIf="pdf"
+      #pdfViewerOnDemand
+      [pdfSrc]="pdf"
+      [openFile]="false"
+      [downloadFileName]="downloadFileName"
+      [download]="true"
+      [viewBookmark]="false"
+      [download]="true">
+    </ng2-pdfjs-viewer>
+  </div>
+</div>
+
+<div *ngIf="!pdf" class="sk-three-bounce">
+  <div class="sk-child sk-bounce1 bg-primary">
+  </div>
+  <div class="sk-child sk-bounce2 bg-primary">
+  </div>
+  <div class="sk-child sk-bounce3"></div>
+</div>

@@ -1,0 +1,54 @@
+<div class="card">
+  <div class="card-header">
+    <strong>Aircrafts Statistics</strong>
+    <small></small>
+  </div>
+  <div class="card-body">
+    <label>Pick a date range</label>
+    <div class="row">
+      <div class="col-xs-12 col-12 col-md-3 form-group">
+        <input class="form-control" #drp="bsDaterangepicker" [bsConfig]="bsConfig" bsDaterangepicker
+          [(ngModel)]="bsRangeValue">
+      </div>
+      <div class="col-xs-12 col-12 col-md-2 form-group">
+        <button class="btn btn-primary" (click)="generateReport()">Generate Report</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mb-4">
+  <tabset  *ngIf="data">
+    <tab heading="UI Report"  *ngIf="!isGenerateReportPressed">
+      <ng-template tabHeading><i class="pl-1 icon-pie-chart"></i></ng-template>
+      <app-ui-report
+        [data]="data"
+        [fromDate]="fromDate"
+        [toDate]="toDate"
+        ></app-ui-report>
+    </tab>
+    <tab heading="PDF Report"  *ngIf="!isGenerateReportPressed">
+      <ng-template tabHeading><i class="pl-1 icon-info"></i></ng-template>
+      <app-pdf-report
+      [fromDate]="fromDate"
+      [toDate]="toDate"
+      ></app-pdf-report>
+    </tab>
+
+
+  </tabset>
+
+  <div class="card" *ngIf="isGenerateReportPressed" >
+    <div class="card-body">
+      <div class="sk-three-bounce">
+        <div class="sk-child sk-bounce1 bg-primary">
+        </div>
+        <div class="sk-child sk-bounce2 bg-primary">
+        </div>
+        <div class="sk-child sk-bounce3"></div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

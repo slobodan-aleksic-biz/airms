@@ -1,0 +1,78 @@
+<div class="app-body bg-img">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <form [formGroup]="loginFormGroup" (ngSubmit)="signIn()">
+                  <h1>Login</h1>
+                  <p class="text-muted" *ngIf="!errorMessage">Sign In to your account</p>
+                  <p class="text-muted" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-at"></i></span>
+                    </div>
+                    <input formControlName="email" type="text" class="form-control" placeholder="Email"
+                      autocomplete="email" required>
+                  </div>
+
+                  <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.email">
+                      <div class="error-message"
+                        *ngIf="loginFormGroup.get('email').hasError(error.type) && (loginFormGroup.get('email').dirty || loginFormGroup.get('email').touched)">
+                        {{ error.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input formControlName="password" type="password" class="form-control" placeholder="Password"
+                      autocomplete="current-password" required>
+                  </div>
+
+                  <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.password">
+                      <div class="error-message"
+                        *ngIf="loginFormGroup.get('password').hasError(error.type) && (loginFormGroup.get('password').dirty || loginFormGroup.get('password').touched)">
+                        {{ error.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+
+                  <div class="row mt-4">
+                    <div class="col-6">
+                      <button type="submit" class="btn btn-primary px-4"
+                        [disabled]="!loginFormGroup.valid">Login</button>
+                    </div>
+                    <div class="col-6 text-right">
+                      <button type="button" class="btn btn-link px-0">Forgot password?</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+              <div class="card-body text-center">
+                <div>
+                  <h2><img src="../../../assets/img/brand/logo-light.png" class="col-md-8" /></h2>
+                  <!-- <h2><img src="../../../assets/img/airplanes/airplane_1.png" style="width:100%" /></h2> -->
+                  <p>Aircraft maintenance is the performance of tasks required to ensure the continuing airworthiness of
+                    an aircraft or aircraft part, including overhaul, inspection, replacement, defect rectification, and
+                    the embodiment of modifications, compliance with airworthiness directives and repair.</p>
+                  <!-- <button type="button" class="btn btn-primary active mt-3">Register Now!</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

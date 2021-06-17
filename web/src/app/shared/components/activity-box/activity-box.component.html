@@ -1,0 +1,72 @@
+<div *ngIf="activityBoxVisibility">
+  <div *ngFor="let activityDate1 of data">
+
+    <div
+      class="list-group-item list-group-item-accent-secondary bg-gray-200 text-center font-weight-bold text-muted text-uppercase small">
+      <i class="icon-calendar"></i> 
+      {{ activityDate1.key }}
+      <span class="ml-1">
+        ({{ activityDate1.values.length }}
+        {{ activityDate1.values.length > 1 ? 'Days' : activityDate1.values.length == 1 ? 'Day' : '' }})
+      </span>
+    </div>
+
+    <div *ngFor="let activityDate2 of activityDate1.values">
+      <div
+        class="list-group-item list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">
+        <div class="timeline-datex">
+          <i class="icon-calendar"></i> 
+          {{ activityDate2.key }}
+          <span class="ml-1">
+            ({{ activityDate2.values.length }}
+            {{ activityDate2.values.length > 1 ? 'Logs' : activityDate2.values.length == 1 ? 'Log' : '' }})
+          </span>
+        </div>
+      </div>
+      <div *ngFor="let activityDate3 of activityDate2.values">
+        <div *ngFor="let d of activityDate3.values"
+          class="list-group-item list-group-item-accent-{{ d.data.description === 'deleted' ? 'danger' : d.data.description === 'updated' ? 'info' : 'success' }} list-group-item-divider">
+          <div class="row">
+            <span class="col-md-1" style="z-index:10000">
+              <a
+                class="text-{{ d.data.description === 'deleted' ? 'danger' : d.data.description === 'updated' ? 'info' : 'success' }} "
+                *ngIf="d.data.description != 'deleted'"
+                [routerLink]="[url+'/'+d.data.subject_id+'/create-update']"
+                routerLinkActive="active">
+                #
+              </a>
+              <span *ngIf="d.data.description == 'deleted'"></span>
+            </span>
+            <span class="col-md-11 row mt-1">
+              <small class="text-muted col-md-7 text-right p-0">
+                <i class="icon-clock"></i> {{ activityDate3.key }} </small>
+              <small class="text-muted col-md-5 text-right p-0">
+                <i class="text-bold">IP</i> {{ d.data.properties.ip }}</small>
+            </span>
+          </div>
+
+
+          <div class="avatars-stack mt-2">
+            <hr>
+            <div class="small">
+              <div
+                class="text-{{ d.data.description === 'deleted' ? 'danger' : d.data.description === 'updated' ? 'info' : 'success' }}"
+                *ngIf="d.data.properties.old"><strong>OLD</strong>: {{ d.data.properties.old | json }}</div>
+              <div
+                class="text-{{ d.data.description === 'deleted' ? 'danger' : d.data.description === 'updated' ? 'info' : 'success' }}"
+                *ngIf="d.data.properties.attributes"><strong>ATTRIBUTES</strong>:
+                {{ d.data.properties.attributes | json }}</div>
+            </div>
+            <hr>
+            <div
+              class="small text-{{ d.data.description === 'deleted' ? 'danger' : d.data.description === 'updated' ? 'info' : 'success' }}">
+              <span style="text-transform:capitalize;">{{ d.data.description }}</span>
+              by
+              <span style="text-transform:capitalize;">{{ d.data.user }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

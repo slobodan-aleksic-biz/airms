@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group col-md-3">
+          <div class="input-group mt-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="icon-plane"></i>
+              </span>
+              </div>
+                <ng-select  *ngIf="aircrafts"
+                            name="aircrafts"
+                            filterPlaceholder="Aircraft to search..."
+                            placeholder="Choose an aircraft"
+                            [options]="aircrafts"
+                            class="custom-select"
+                            [allowClear]="true"
+                            style="z-index: 1000"
+                            [(ngModel)]="aircraftId"
+                            (selected)="selectAircraft($event)"
+                            (deselected)="deselectAircraft($event)">
+              </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<airms-component-datatable
+  *ngIf="dataUrl && aircraftId"
+  [title]="title"
+  [dataUrl]="dataUrl"
+  (tableEvent)="onTableEvent($event)">
+</airms-component-datatable>
+
+
+<div class="card" *ngIf="!aircraftId">
+  <div class="card-body text-center my-5">
+    <img class="col-md-6" src="../../../../../../assets/img/aircrafts/aircraft-scelets.png" />
+  </div>
+</div>
+

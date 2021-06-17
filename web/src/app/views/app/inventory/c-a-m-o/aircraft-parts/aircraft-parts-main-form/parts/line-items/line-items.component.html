@@ -1,0 +1,854 @@
+<main class="px-0">
+  <p class="text-center bg-gray-200 py-2 rounded ml-3 pr-0">Component Info</p>
+  <p
+    *ngIf="part.is_depleted !== 0"
+    class="text-center bg-danger py-2 rounded ml-3 pr-0"
+  >
+    The part is depleted!
+  </p>
+
+  <div class="col-md-12 px-0" *ngIf="!noInfoData">
+    <div class="col-md">
+      <div class="row lg:flex-nowrap">
+        <div class="form-group col-md-6 flex-nowrap row">
+          <div class="col-md pr-0">
+            <div class="input-group mb-1 flex-nowrap">
+              <div class="input-group-prepend">
+                <span
+                  class="input-group-text sm-font bg-primary text-right"
+                  style="width: 110px"
+                  >INIT PART NUM</span
+                >
+              </div>
+              <div class="input-group-append">
+                <textarea
+                  disabled
+                  rows="1"
+                  cols="13"
+                  class="input-text sm-font bg-white info-box-right-rounded"
+                  >{{ initPartNum }}</textarea
+                >
+              </div>
+            </div>
+
+            <div
+              *ngIf="stockItem.component_type !== 'expendable'"
+              class="input-group mb-1 flex-nowrap"
+            >
+              <div class="input-group-prepend">
+                <span
+                  class="input-group-text sm-font bg-secondary text-right"
+                  style="width: 110px"
+                  >PART NUM</span
+                >
+              </div>
+              <div class="input-group-append">
+                <textarea
+                  disabled
+                  rows="1"
+                  cols="13"
+                  class="input-text sm-font bg-white info-box-right-rounded"
+                  >{{ partNum }}</textarea
+                >
+              </div>
+            </div>
+
+            <div
+              *ngIf="stockItem.component_type !== 'expendable'"
+              class="input-group mb-1 flex-nowrap"
+            >
+              <div class="input-group-prepend text-right">
+                <span
+                  class="input-group-text sm-font bg-yellow text-right"
+                  style="width: 110px"
+                  >SERIAL NUM</span
+                >
+              </div>
+              <div class="input-group-append">
+                <textarea
+                  disabled
+                  rows="1"
+                  cols="13"
+                  class="input-text sm-font bg-white info-box-right-rounded"
+                  >{{ serialNum }}</textarea
+                >
+              </div>
+            </div>
+
+            <div
+              *ngIf="stockItem.component_type === 'expendable'"
+              class="input-group mb-1 flex-nowrap"
+            >
+              <div class="input-group-prepend text-right">
+                <span
+                  class="input-group-text sm-font bg-yellow text-right"
+                  style="width: 110px"
+                  >BATCH NUM</span
+                >
+              </div>
+              <div class="input-group-append">
+                <textarea
+                  disabled
+                  rows="1"
+                  cols="13"
+                  class="input-text sm-font bg-white info-box-right-rounded"
+                  >{{ batchNum }}</textarea
+                >
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="input-group mb-1 mt-0 col-md px-0 flex-nowrap border-2 border-gray-200"
+            *ngIf="!noQRData"
+          >
+            <div class="ml-2">
+              <img
+                [src]="qrSrc"
+                class="img-responsive lg:ml-auto mt-0 rounded"
+                style="width: 100px; height: 100px; border: 1px solid #e4e7ea"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-6 col-sm-12">
+          <div class="col-md pr-md-0 pl-md-0">
+            <div class="row flex-nowrap">
+              <div class="input-group mb-1 flex-nowrap">
+                <div class="input-group-prepend">
+                  <span class="input-group-text sm-font">NAME</span>
+                </div>
+                <div class="input-group-append">
+                  <textarea
+                    disabled
+                    rows="1"
+                    cols="51"
+                    class="input-text sm-font bg-white info-box-right-rounded"
+                    >{{ name }}</textarea
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row flex-nowrap">
+              <div class="input-group mb-1 col-mdx mr-1 flex-nowrap">
+                <div class="input-group-prepend">
+                  <span class="input-group-text sm-font">COMPONENT TYPE</span>
+                </div>
+                <div class="input-group-append">
+                  <textarea
+                    disabled
+                    rows="1"
+                    cols="8"
+                    class="input-text sm-font bg-white info-box-right-rounded"
+                    >{{ componentType }}</textarea
+                  >
+                </div>
+              </div>
+              <div class="input-group mb-1 col-mdx flex-nowrap">
+                <div class="input-group-prepend">
+                  <span class="input-group-text sm-font">OWNER</span>
+                </div>
+                <div class="input-group-append">
+                  <textarea
+                    disabled
+                    rows="1"
+                    cols="12"
+                    class="input-text sm-font bg-white info-box-right-rounded"
+                    >{{ owner }}</textarea
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row flex-nowrap">
+              <div class="input-group mb-1 col-mdx mr-1 flex-nowrap">
+                <div class="input-group-prepend">
+                  <span class="input-group-text sm-font">ATA CHAPTER</span>
+                </div>
+                <div class="input-group-append">
+                  <textarea
+                    disabled
+                    rows="1"
+                    cols="1"
+                    class="input-text sm-font bg-white info-box"
+                    >{{ ataChapterCode }}</textarea
+                  >
+                </div>
+                <div class="input-group-append">
+                  <textarea
+                    disabled
+                    rows="1"
+                    cols="11"
+                    class="input-text sm-font bg-white info-box-right-rounded"
+                    >{{ ataChapterName }}</textarea
+                  >
+                </div>
+              </div>
+
+              <div class="input-group mb-1 col-mdx flex-nowrap">
+                <div class="input-group-prepend">
+                  <span class="input-group-text sm-font">AC TYPE</span>
+                </div>
+                <textarea
+                  disabled
+                  rows="1"
+                  cols="5"
+                  class="input-text sm-font bg-white info-box-right-rounded"
+                  >{{ aircraftType }}</textarea
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row sm:flex-wrap lg:flex-nowrap pb-3">
+        <div class="flex mr-4 col-md-3 ml-0 pl-0">
+          <div
+            *ngIf="stockItem.is_shelf_life_applicable"
+            class="input-group mb-1 col-md flex-nowrap"
+          >
+            <div class="input-group-prepend">
+              <span class="input-group-text sm-font"
+                >SHELF LIFE ALARM ({{ shelfLifeAlarm }})</span
+              >
+            </div>
+            <div class="input-group-append">
+              <textarea
+                disabled
+                class="input-group-text sm-font bg-white"
+                [ngClass]="{
+                  'bg-danger': isShelfLifeOk == 0,
+                  'bg-warning': isShelfLifeOk == 1,
+                  'bg-white': isShelfLifeOk == 2
+                }"
+                rows="1"
+                cols="3"
+                >{{ shelfLife }}</textarea
+              >
+            </div>
+          </div>
+          <div
+          *ngIf="stockItem.component_type === 'expendable'"
+          class="input-group mb-1 col-md flex-nowrap">
+            <div class="input-group-prepend">
+              <span class="input-group-text sm-font"
+                >QUANTITY ALARM ({{ quantityAlarm }})</span
+              >
+            </div>
+            <div class="input-group-append">
+              <textarea
+                disabled
+                class="input-group-text sm-font"
+                [ngClass]="{
+                  'bg-danger': lastLineItem.is_qty_ok == 0,
+                  'bg-warning': lastLineItem.is_qty_ok == 1,
+                  'bg-white': lastLineItem.is_qty_ok == 2
+                }"
+                rows="1"
+                cols="4"
+                >{{ quantity }}</textarea
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group mb-1 col-md-4 mr-4 flex-nowrap">
+          <div class="input-group-prepend">
+            <span class="input-group-text sm-font">COMPONENT<br />NOTE</span>
+          </div>
+          <div class="input-group-append">
+            <textarea
+              disabled
+              rows="3"
+              cols="20"
+              class="input-text sm-font bg-white info-box-right-rounded"
+              >{{ componentNote }}</textarea
+            >
+          </div>
+        </div>
+
+        <div class="input-group mb-1 col-md-3 flex-nowrap">
+          <div class="input-group-prepend">
+            <span class="input-group-text sm-font bg-gray-200">NOTE</span>
+          </div>
+          <div class="input-group-append">
+            <textarea
+              disabled
+              rows="3"
+              cols="25"
+              class="input-text sm-font bg-white info-box-right-rounded"
+              >{{ lineItemNote }}</textarea
+            >
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="stockItem.component_type !== 'expendable'" class="row">
+        <div class="form-group col-md-6">
+          <div class="input-group mb-1 flex-nowrap">
+            <div class="input-group-prepend">
+              <span
+                class="input-group-text sm-font bg-gray-200"
+                style="width: 220px"
+                >TIME SINCE NEW (TSN)</span
+              >
+            </div>
+            <div class="input-group-append">
+              <textarea
+                disabled
+                rows="1"
+                cols="7"
+                class="input-text sm-font bg-white info-box-right-rounded"
+                >{{ timeSinceNew }}</textarea
+              >
+            </div>
+          </div>
+
+          <div class="input-group mb-1 flex-nowrap">
+            <div class="input-group-prepend">
+              <span
+                class="input-group-text sm-font bg-gray-200"
+                style="width: 220px"
+                >CYCLES SINCE NEW (CSN)</span
+              >
+            </div>
+            <div class="input-group-append">
+              <textarea
+                disabled
+                rows="1"
+                cols="7"
+                class="input-text sm-font bg-white info-box-right-rounded"
+                >{{ cyclesSinceNew }}</textarea
+              >
+            </div>
+          </div>
+
+          <div class="input-group mb-1 flex-nowrap">
+            <div class="input-group-prepend">
+              <span
+                class="input-group-text sm-font bg-gray-200"
+                style="width: 220px"
+                >DAYS SINCE NEW (DSN)</span
+              >
+            </div>
+            <div class="input-group-append">
+              <textarea
+                disabled
+                rows="1"
+                cols="7"
+                class="input-text sm-font bg-white info-box-right-rounded"
+                >{{ daysSinceNew }}</textarea
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-6">
+          <div class="input-group mb-1 flex-nowrap">
+            <div class="input-group-prepend">
+              <span
+                class="input-group-text sm-font bg-gray-200"
+                style="width: 220px"
+                >TIME SINCE OVERHAUL (TSO)</span
+              >
+            </div>
+            <div class="input-group-append">
+              <textarea
+                disabled
+                rows="1"
+                cols="7"
+                class="input-text sm-font bg-white info-box-right-rounded"
+                >{{ timeSinceOverhaul }}</textarea
+              >
+            </div>
+          </div>
+
+          <div class="input-group mb-1 flex-nowrap">
+            <div class="input-group-prepend">
+              <span
+                class="input-group-text sm-font bg-gray-200"
+                style="width: 220px"
+                >CYCLES SINCE OVERHAUL (CSO)</span
+              >
+            </div>
+            <div class="input-group-append">
+              <textarea
+                disabled
+                rows="1"
+                cols="7"
+                class="input-text sm-font bg-white info-box-right-rounded"
+                >{{ cyclesSinceOverhaul }}</textarea
+              >
+            </div>
+          </div>
+
+          <div class="input-group mb-1 flex-nowrap">
+            <div class="input-group-prepend">
+              <span
+                class="input-group-text sm-font bg-gray-200"
+                style="width: 220px"
+                >DAYS SINCE OVERHAUL (DSO)</span
+              >
+            </div>
+            <div class="input-group-append">
+              <textarea
+                disabled
+                rows="1"
+                cols="7"
+                class="input-text sm-font bg-white info-box-right-rounded"
+                >{{ daysSinceOverhaul }}</textarea
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 pr-0">
+    <div class="cardx">
+      <div class="card-header">
+        <div class="row">
+          <div
+            *ngIf="stockItem.component_type === 'expendable'"
+            class="col-md-8"
+          >
+            <button
+              *ngIf="
+                !part.is_depleted &&
+                lastLineItem.condition !== 'unserviceable' &&
+                (!data ||
+                  !lastLineItem ||
+                  lastLineItem.qty_balance_right !== '0') &&
+                (!(data && !stockItem.is_recoverable) ||
+                  lastLineItem.location === 'transfer_to')
+              "
+              type="button"
+              (click)="onCreateLineItem($event, 'stock')"
+              class="btn btn-secondary btn-sm w120px"
+            >
+              <i class="fa fa-plus"></i>&nbsp; TO STOCK
+            </button>
+
+            <button
+              *ngIf="
+                data &&
+                !part.is_depleted &&
+                lastLineItem.condition !== 'unserviceable' &&
+                (lastLineItem.location === 'stock' ||
+                  lastLineItem.qty_balance > 0)
+              "
+              type="button"
+              (click)="onCreateLineItem($event, 'mro')"
+              class="btn btn-secondary btn-sm w120px"
+            >
+              <i class="fa fa-plus"></i>&nbsp; TO MRO
+            </button>
+
+            <button
+              *ngIf="
+                data &&
+                !part.is_depleted &&
+                ((stockItem.component_type === 'expendable' &&
+                  stockItem.is_recoverable) ||
+                  lastLineItem.location === 'stock' ||
+                  lastLineItem.output_qty === '0')
+              "
+              type="button"
+              (click)="onCreateLineItem($event, 'service')"
+              class="btn btn-secondary btn-sm w120px"
+            >
+              <i class="fa fa-plus"></i>&nbsp; TO SHOP
+            </button>
+
+            <button
+              *ngIf="
+                data &&
+                !part.is_depleted &&
+                ((stockItem.component_type === 'expendable' &&
+                  stockItem.is_recoverable) ||
+                  lastLineItem.location === 'stock' ||
+                  lastLineItem.output_qty === '0')
+              "
+              type="button"
+              (click)="onCreateLineItem($event, 'transfer_to')"
+              class="btn btn-secondary btn-sm w120px"
+            >
+              <i class="fa fa-plus"></i>&nbsp; TRANSFER TO
+            </button>
+          </div>
+
+          <div *ngIf="stockItem.component_type !== 'expendable'" class="col">
+            <button
+              *ngIf="
+                !part.is_depleted &&
+                lastLineItem.condition !== 'unserviceable' &&
+                (!data || !lastLineItem || lastLineItem.location !== 'stock')
+              "
+              type="button"
+              (click)="onCreateLineItem($event, 'stock')"
+              class="btn btn-secondary btn-sm w120px"
+            >
+              <i class="fa fa-plus"></i>&nbsp; TO STOCK
+            </button>
+
+            <button
+              *ngIf="
+                (data &&
+                  !part.is_depleted &&
+                  lastLineItem.condition !== 'unserviceable' &&
+                  lastLineItem.location === 'stock') ||
+                lastLineItem.qty_balance > 0
+              "
+              type="button"
+              (click)="onCreateLineItem($event, 'mro')"
+              class="btn btn-secondary btn-sm w120px"
+            >
+              <i class="fa fa-plus"></i>&nbsp; TO MRO
+            </button>
+
+            <button
+              *ngIf="
+                data &&
+                !part.is_depleted &&
+                stockItem.component_type !== 'expendable' &&
+                lastLineItem.location === 'stock' &&
+                lastLineItem.output_qty === '0'
+              "
+              type="button"
+              (click)="onCreateLineItem($event, 'service')"
+              class="btn btn-secondary btn-sm w120px"
+            >
+              <i class="fa fa-plus"></i>&nbsp; TO SHOP
+            </button>
+
+            <button
+              *ngIf="
+                data &&
+                !part.is_depleted &&
+                stockItem.component_type !== 'expendable' &&
+                lastLineItem.location === 'stock' &&
+                lastLineItem.output_qty === '0'
+              "
+              type="button"
+              (click)="onCreateLineItem($event, 'transfer_to')"
+              class="btn btn-secondary btn-sm w120px"
+            >
+              <i class="fa fa-plus"></i>&nbsp; TRANSFER TO
+            </button>
+          </div>
+
+          <div class="col-md-4" *ngIf="dataVal">
+            <div class="input-group ml-auto" style="width: 250px">
+              <div class="input-group-prepend">
+                <span class="input-group-text"
+                  ><i class="fa fa-search"></i
+                ></span>
+              </div>
+              <input
+                type="text"
+                class="form-control sm-font"
+                [(ngModel)]="filterQuery"
+                (ngModelChange)="onLineItemNumSearchChange($event)"
+                placeholder="Search"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text"
+                  ><i
+                    class="fa fa-times"
+                    style="cursor: pointer"
+                    (click)="onSearchClear()"
+                  ></i
+                ></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body px-0">
+        <div class="sm-font mx-auto" style="max-width: 80vh">
+          <div class="table-responsive px-0 mx-auto">
+            <table
+              class="table table-striped table-hover mb-0"
+              [mfData]="dataVal"
+              #mf="mfDataTable"
+              [mfRowsOnPage]="10"
+              *ngIf="dataVal"
+            >
+              <thead>
+                <tr>
+                  <th
+                    [style]="'width:' + (columns.length + 2) / 100 + '%'"
+                    *ngFor="
+                      let col of columns | slice: 0:columns.length - 2;
+                      let i = index
+                    "
+                    class="text-{{
+                      col.indexOf('_right') > -1
+                        ? 'right'
+                        : col.indexOf('_left') > -1
+                        ? 'left'
+                        : 'center'
+                    }}"
+                  >
+                    <mfDefaultSorter *ngIf="i == 0" by="{{ i }}">
+                      #
+                    </mfDefaultSorter>
+                    <mfDefaultSorter *ngIf="i > 0" by="{{ col }}">
+                      <span
+                        [innerHTML]="
+                          col
+                            .replace('_right', '')
+                            .replace('_left', '')
+                            .replace('_center', '')
+                            .replace('_', '<br>')
+                            .replaceAll('_', ' ') | uppercase
+                        "
+                      ></span>
+                    </mfDefaultSorter>
+                  </th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of mf.data; let i = index">
+                  <td
+                    *ngFor="
+                      let col of columns | slice: 0:columns.length - 2;
+                      let j = index
+                    "
+                    class="text-{{
+                      col.indexOf('_right') > -1
+                        ? 'right'
+                        : col.indexOf('_left') > -1
+                        ? 'left'
+                        : 'center'
+                    }} py-2"
+                    (click)="onLineItem(item['id'])"
+                    style="cursor: pointer"
+                    [ngClass]="{ 'bg-secondary': lineItemId == item['id'] }"
+                    nowrap
+                  >
+                    <span
+                      *ngIf="j == 0"
+                      [innerHTML]="i + 1 + mf.rowsOnPage * (mf.activePage - 1)"
+                    ></span>
+                    <span *ngIf="j > 0" [innerHTML]="item[col]"></span>
+                  </td>
+                  <td nowrap class="py-1 py-0 my-0">
+                    <table class="p-0 m-0">
+                      <tr class="p-0 m-0">
+                        <td class="p-0 m-0">
+                          <button
+                            class="btn btn-primary btn-sm"
+                            (click)="
+                              onEditLineItem($event, item.id, item['action'], item)
+                            "
+                            [ngClass]="{
+                              'd-block': lineItemId == item['id'],
+                              'd-none': lineItemId != item['id']
+                            }"
+                          >
+                            <i class="fa fa-edit"></i>
+                          </button>
+                        </td>
+                        <td class="p-0 m-0">
+                          <button
+                            class="btn btn-danger btn-sm"
+                            (click)="onRemoveLineItem($event, item.id)"
+                            [ngClass]="{
+                              'd-block': lineItemId == item['id'],
+                              'd-none': lineItemId != item['id']
+                            }"
+                          >
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th
+                    *ngIf="
+                      stockItem.is_shelf_life_applicable &&
+                      stockItem.component_type !== 'expendable'
+                    "
+                    class="text-center bg-gray-100"
+                    colspan="10"
+                  ></th>
+                  <th
+                    *ngIf="
+                      stockItem.is_shelf_life_applicable &&
+                      stockItem.component_type === 'expendable'
+                    "
+                    class="text-center bg-gray-100"
+                    colspan="9"
+                  ></th>
+
+                  <th
+                    *ngIf="
+                      !stockItem.is_shelf_life_applicable &&
+                      stockItem.component_type !== 'expendable'
+                    "
+                    class="text-center bg-gray-100"
+                    colspan="8"
+                  ></th>
+                  <th
+                    *ngIf="
+                      !stockItem.is_shelf_life_applicable &&
+                      stockItem.component_type === 'expendable'
+                    "
+                    class="text-center bg-gray-100"
+                    colspan="7"
+                  ></th>
+
+                  <th class="text-right">
+                    {{ totalInputQty }}
+                  </th>
+                  <th class="text-right">
+                    {{ totalOutputQty }}
+                  </th>
+                  <th class="text-right">
+                    {{ totalQtyBalance }}
+                  </th>
+
+                  <th colspan="10" class="text-center bg-gray-100"></th>
+                </tr>
+                <tr>
+                  <th colspan="100">
+                    <span class="pull-left border border-gray rounded">
+                      <h6 class="pt-2 px-2 sm-font" *ngIf="dataVal">
+                        TOTAL {{ dataVal.length }}
+                      </h6>
+                    </span>
+                    <button
+                      type="button"
+                      class="btn sm-font btn-light w100px ml-2 mr-1 mb-2"
+                    >
+                      <i class="fa fa-download"></i>&nbsp; Export
+                    </button>
+                    <mfBootstrapPaginator
+                      class="pull-right"
+                      [rowsOnPageSet]="[5, 10, 15]"
+                    ></mfBootstrapPaginator>
+                  </th>
+                </tr>
+              </tfoot>
+            </table>
+            <div *ngIf="!dataVal && !noData" class="sk-three-bounce">
+              <div class="sk-child sk-bounce1 bg-secondary"></div>
+              <div class="sk-child sk-bounce2 bg-secondary"></div>
+              <div class="sk-child sk-bounce3"></div>
+            </div>
+          </div>
+          <div class="py-3" *ngIf="!dataVal && noData">
+            <div class="card-header text-muted text-center">Empty</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer"></div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+
+  <div
+    bsModal
+    #lineItemModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-secondary modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header py-2">
+          <h4 class="modal-title dark-title text-capitalize">{{ title }}</h4>
+          <button
+            type="button"
+            class="close"
+            (click)="lineItemModal.hide()"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <app-create-update-line-item
+          *ngIf="action"
+          [lineItems]="data"
+          [lineItemId]="lineItemId"
+          [lineItem]="lineItem"
+          [firstLineItem]="firstLineItem"
+          [lastLineItem]="lastLineItem"
+          [partId]="partId"
+          [part]="part"
+          [stockItemId]="stockItemId"
+          [stockItem]="stockItem"
+          [totalQtyBalance]="totalQtyBalance"
+          [totalOutputQty]="totalOutputQty"
+          [action]="action"
+          (onSave)="onSave($event)"
+          (onCancel)="onCancel($event)"
+        ></app-create-update-line-item>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+  <div
+    bsModal
+    #dangerModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-danger" role="document">
+      <div class="modal-content">
+        <div class="modal-header py-2">
+          <h5 class="modal-title">Warning</h5>
+          <button
+            type="button"
+            class="close"
+            (click)="dangerModal.hide()"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body p-0 px-4">
+          <br />
+          <p>Do you want to delete the line item?</p>
+        </div>
+        <div class="modal-footer py-2">
+          <button
+            type="button"
+            class="btn btn-secondary btn-sm w80px"
+            (click)="dangerModal.hide()"
+          >
+            No
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm w80px"
+            (click)="deleteAction()"
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+  <!-- /.modal -->
+</main>

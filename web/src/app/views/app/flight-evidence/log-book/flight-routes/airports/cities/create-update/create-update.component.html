@@ -1,0 +1,134 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="icon-note"></i> {{ title }}
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()" class="needs-validation">
+
+                <div class="form-group">
+                  <label class="col-form-label" for="name">Name</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-tag"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="name"
+                          type="text"
+                          formControlName="name"
+                          placeholder="Name"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.name.errors, 'is-valid': f.name.touched && !f.name.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                    <div *ngIf="f['name'].errors.required">Name is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="zip_code">Zip Code</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-grid"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="zip_code"
+                          type="text"
+                          formControlName="zip_code"
+                          placeholder="Zip Code"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.zip_code.errors, 'is-valid': f.zip_code.touched && !f.zip_code.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['zip_code'].errors" class="invalid-feedback">
+                    <div *ngIf="f['zip_code'].errors.required">Zip Code is required</div>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label class="col-form-label" for="country_id">Country</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-globe"></i></span></div>
+                        <ng-select
+                          id="country_id"
+                          name="country_id"
+                          formControlName="country_id"
+                          placeholder="Choose a country"
+                          [options]="countries"
+                          class="custom-select col-md-4"
+                          [allowClear]="true"
+                          style="z-index: 1010"
+                          (selected)="selectCountry($event)"
+                          (deselected)="deselectCountry($event)"
+                          [ngClass]="{ 'is-invalid': submitted && f.country_id.errors, 'is-valid': f.country_id.touched && !f.country_id.errors }"
+                          required>
+                      </ng-select>
+                  </div>
+                  <div *ngIf="submitted && f['country_id'].errors" class="invalid-feedback">
+                    <div *ngIf="f['country_id'].errors.required">Country is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="state_id">State</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-globe-alt"></i></span></div>
+                        <ng-select
+                          id="state_id"
+                          name="state_id"
+                          formControlName="state_id"
+                          placeholder="Choose a state"
+                          [options]="states"
+                          class="custom-select col-md-4"
+                          [allowClear]="true"
+                          style="z-index: 1000"
+                          [ngClass]="{ 'is-invalid': submitted && f.state_id.errors, 'is-valid': f.state_id.touched && !f.state_id.errors }"
+                          required>
+                      </ng-select>
+                  </div>
+                  <div *ngIf="submitted && f['state_id'].errors" class="invalid-feedback">
+                    <div *ngIf="f['state_id'].errors.required">State is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">Has Airport</label><br>
+                    <label class="switch switch-3d switch-label switch-success" >
+                      <input type="checkbox"
+                        class="form-control switch-input"
+                        id="has_airport"
+                        formControlName="has_airport"
+                        [ngClass]="{ 'is-invalid': submitted && f.has_airport.errors, 'is-valid': !f.has_airport.errors }"
+                      >
+                      <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+                    </label>
+                    <div *ngIf="submitted && f['has_airport'].errors" class="invalid-feedback">
+                      <div *ngIf="f['has_airport'].errors.required">User will not be able to access the system!</div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                  <button class="btn btn-success mr-1  w100px" type="submit" [disabled]="formGroup.invalid">Save</button>
+                  <button
+                    class="btn btn-danger w100px"
+                    type="reset"
+                    [disabled]="formGroup.pristine && !submitted"
+                    (click)="onReset()"
+                    *ngIf="!id">Reset</button>
+                  <a (click)="onCancel()" class="btn btn-secondary mr-1 w100px">Cancel</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

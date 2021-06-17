@@ -1,0 +1,51 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="icon-note"></i> {{ title }}
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()" class="needs-validation">
+
+                <div class="form-group">
+                  <label class="col-form-label" for="delay_type">Delay Type</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-tag"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="delay_type"
+                          type="text"
+                          formControlName="delay_type"
+                          placeholder="Delay Type"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.delay_type.errors, 'is-valid': f.delay_type.touched && !f.delay_type.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['delay_type'].errors" class="invalid-feedback">
+                    <div *ngIf="f['delay_type'].errors.required">Delay Type is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group pt-3">
+                  <button class="btn btn-success mr-1  w100px" type="submit" [disabled]="formGroup.invalid">Save</button>
+                  <button
+                    class="btn btn-danger w100px"
+                    type="reset"
+                    [disabled]="formGroup.pristine && !submitted"
+                    (click)="onReset()"
+                    *ngIf="!id">Reset</button>
+                  <a (click)="onCancel()" class="btn btn-secondary mr-1 w100px">Cancel</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

@@ -1,0 +1,82 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="icon-note"></i> {{ title }}
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()" class="needs-validation">
+                <div class="form-group">
+                  <label class="col-form-label" for="code">Code</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-tag"></i></span></div>
+                    <input class="form-control"
+                          id="code"
+                          type="text"
+                          formControlName="code"
+                          placeholder="Code"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.code.errors, 'is-valid': f.code.touched && !f.code.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['code'].errors" class="invalid-feedback">
+                    <div *ngIf="f['code'].errors.required">Code is required</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label" for="name">Name</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-grid"></i></span></div>
+                    <input class="form-control"
+                          id="name"
+                          type="text"
+                          formControlName="name"
+                          placeholder="Name"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.name.errors, 'is-valid': f.name.touched && !f.name.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                    <div *ngIf="f['name'].errors.required">Name is required</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label" for="description">Description</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-speech"></i></span></div>
+                    <textarea class="form-control"
+                          id="description"
+                          type="text"
+                          formControlName="description"
+                          placeholder="Description"
+                          autocomplete="off"
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.description.errors, 'is-valid': f.description.touched && !f.description.errors }" >
+                    </textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-success mr-1  w100px" type="submit" [disabled]="formGroup.invalid">Save</button>
+                  <button
+                    class="btn btn-danger w100px"
+                    type="reset"
+                    [disabled]="formGroup.pristine && !submitted"
+                    (click)="onReset()"
+                    *ngIf="!id">Reset</button>
+                  <a (click)="onCancel()" class="btn btn-secondary mr-1 w100px">Cancel</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

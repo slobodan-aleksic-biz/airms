@@ -1,0 +1,146 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="icon-note"></i> {{ title }}
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()" class="needs-validation">
+
+                <div class="form-group">
+                  <label class="col-form-label" for="name">Name</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-tag"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="name"
+                          type="text"
+                          formControlName="name"
+                          placeholder="Name"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.name.errors, 'is-valid': f.name.touched && !f.name.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                    <div *ngIf="f['name'].errors.required">Name is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="reg">Registration</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-registered"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="reg"
+                          type="text"
+                          formControlName="reg"
+                          placeholder="Registration"
+                          autocomplete="off"
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.reg.errors, 'is-valid': f.reg.touched && !f.reg.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['reg'].errors" class="invalid-feedback">
+                    <div *ngIf="f['reg'].errors.required">Registration is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="serial_no">Serial No</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-speech"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="serial_no"
+                          type="text"
+                          formControlName="serial_no"
+                          placeholder="Serial No"
+                          autocomplete="off"
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.serial_no.errors, 'is-valid': f.serial_no.touched && !f.serial_no.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['serial_no'].errors" class="invalid-feedback">
+                    <div *ngIf="f['serial_no'].errors.required">Serial No is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="number_of_seats">Number of Seats</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-options"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="number_of_seats"
+                          type="number"
+                          min="0"
+                          formControlName="number_of_seats"
+                          placeholder="Number of Seats"
+                          autocomplete="off"
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.number_of_seats.errors, 'is-valid': f.number_of_seats.touched && !f.number_of_seats.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['number_of_seats'].errors" class="invalid-feedback">
+                    <div *ngIf="f['number_of_seats'].errors.required">Number of Seats is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="origin">Aircraft Type</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-plane"></i></span></div>
+                        <ng-select
+                          id="aircraft_type_id"
+                          name="aircraft_type_id"
+                          formControlName="aircraft_type_id"
+                          placeholder="Choose an aircraft type"
+                          [options]="aircraftTypes"
+                          class="custom-select col-md-4"
+                          [allowClear]="true"
+                          style="z-index: 1010"
+                          [ngClass]="{ 'is-invalid': submitted && f.aircraft_type_id.errors, 'is-valid': f.aircraft_type_id.touched && !f.aircraft_type_id.errors }"
+                          required>
+                      </ng-select>
+                  </div>
+                  <div *ngIf="submitted && f['aircraft_type_id'].errors" class="invalid-feedback">
+                    <div *ngIf="f['aircraft_type_id'].errors.required">Aircraft Type is required</div>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label class="col-form-label">Status</label><br>
+                    <label class="switch switch-3d switch-label switch-success" >
+                      <input type="checkbox"
+                        class="form-control switch-input"
+                        id="status"
+                        formControlName="status"
+                        [ngClass]="{ 'is-invalid': submitted && f.status.errors, 'is-valid': !f.status.errors }"
+                      >
+                      <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+                    </label>
+                    <div *ngIf="submitted && f['status'].errors" class="invalid-feedback">
+                      <div *ngIf="f['status'].errors.required">Status is required</div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                  <button class="btn btn-success mr-1  w100px" type="submit" [disabled]="formGroup.invalid">Save</button>
+                  <button
+                    class="btn btn-danger w100px"
+                    type="reset"
+                    [disabled]="formGroup.pristine && !submitted"
+                    (click)="onReset()"
+                    *ngIf="!id">Reset</button>
+                  <a (click)="onCancel()" class="btn btn-secondary mr-1 w100px">Cancel</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

@@ -1,0 +1,348 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header"><i class="icon-note"></i> {{ title }}</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form
+                [formGroup]="formGroup"
+                novalidate
+                (ngSubmit)="onSubmit()"
+                class="needs-validation"
+              >
+
+                <div class="row">
+
+                  <div class="col-md-6">
+
+                    <div class="form-group">
+                      <label class="col-form-label" for="name">Name</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="icon-grid"></i
+                          ></span>
+                        </div>
+                        <input
+                          class="form-control"
+                          id="name"
+                          type="text"
+                          formControlName="name"
+                          placeholder="Name"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{
+                            'is-invalid': submitted && f.name.errors,
+                            'is-valid': f.name.touched && !f.name.errors
+                          }"
+                        />
+                      </div>
+                      <div class="error-messages">
+                        <ng-container *ngFor="let error of error_messages.name">
+                          <div
+                            class="error-message"
+                            *ngIf="
+                              f.name.hasError(error.type) &&
+                              (f.name.dirty || f.name.touched)
+                            "
+                          >
+                            {{ error.message }}
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-form-label" for="phone">Phone</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="icon-grid"></i
+                          ></span>
+                        </div>
+                        <input
+                          class="form-control"
+                          id="phone"
+                          type="text"
+                          formControlName="phone"
+                          placeholder="Phone"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{
+                            'is-invalid': submitted && f.phone.errors,
+                            'is-valid': f.phone.touched && !f.phone.errors
+                          }"
+                        />
+                      </div>
+                      <div class="error-messages">
+                        <ng-container *ngFor="let error of error_messages.phone">
+                          <div
+                            class="error-message"
+                            *ngIf="
+                              f.phone.hasError(error.type) &&
+                              (f.phone.dirty || f.phone.touched)
+                            "
+                          >
+                            {{ error.message }}
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-form-label" for="email">Email</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="icon-grid"></i
+                          ></span>
+                        </div>
+                        <input
+                          class="form-control"
+                          id="email"
+                          type="email"
+                          formControlName="email"
+                          placeholder="Email"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{
+                            'is-invalid': submitted && f.email.errors,
+                            'is-valid': f.email.touched && !f.email.errors
+                          }"
+                        />
+                      </div>
+                      <div class="error-messages">
+                        <ng-container *ngFor="let error of error_messages.email">
+                          <div
+                            class="error-message"
+                            *ngIf="
+                              f.email.hasError(error.type) &&
+                              (f.email.dirty || f.email.touched)
+                            "
+                          >
+                            {{ error.message }}
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-form-label" for="description"
+                        >Description</label
+                      >
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="icon-speech"></i
+                          ></span>
+                        </div>
+                        <textarea
+                          class="form-control"
+                          id="description"
+                          type="text"
+                          formControlName="description"
+                          placeholder="Description"
+                          autocomplete="off"
+                          autofocus
+                          [ngClass]="{
+                            'is-invalid': submitted && f.description.errors,
+                            'is-valid':
+                              f.description.touched && !f.description.errors
+                          }"
+                        >
+                        </textarea>
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  <div class="col-md-6">
+
+                    <div class="form-group">
+                      <label class="col-form-label" for="country_id">Country</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="icon-globe"></i
+                          ></span>
+                        </div>
+                        <ng-select
+                          id="country_id"
+                          name="country_id"
+                          formControlName="country_id"
+                          placeholder="Choose a country"
+                          [options]="countries"
+                          class="custom-select"
+                          [allowClear]="true"
+
+                          (selected)="selectCountry($event)"
+                          (deselected)="deselectCountry($event)"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.country_id.errors,
+                            'is-valid': f.country_id.touched && !f.country_id.errors
+                          }"
+                          required
+                        >
+                        </ng-select>
+                      </div>
+                      <div
+                        *ngIf="submitted && f['country_id'].errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f['country_id'].errors.required">
+                          Country is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-form-label" for="state_id">State</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="icon-globe-alt"></i
+                          ></span>
+                        </div>
+                        <ng-select
+                          id="state_id"
+                          name="state_id"
+                          formControlName="state_id"
+                          placeholder="Choose a state"
+                          [options]="states"
+                          class="custom-select"
+                          [allowClear]="true"
+
+                          (selected)="selectState($event)"
+                          (deselected)="deselectState($event)"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.state_id.errors,
+                            'is-valid': f.state_id.touched && !f.state_id.errors
+                          }"
+                          required
+                        >
+                        </ng-select>
+                      </div>
+                      <div
+                        *ngIf="submitted && f['state_id'].errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f['state_id'].errors.required">
+                          State is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-form-label" for="city_id">City</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="fa fa-building-o"></i
+                          ></span>
+                        </div>
+                        <ng-select
+                          id="city_id"
+                          name="city_id"
+                          formControlName="city_id"
+                          placeholder="Choose a state"
+                          [options]="cities"
+                          class="custom-select"
+                          [allowClear]="true"
+
+                          [ngClass]="{
+                            'is-invalid': submitted && f.city_id.errors,
+                            'is-valid': f.city_id.touched && !f.city_id.errors
+                          }"
+                          required
+                        >
+                        </ng-select>
+                      </div>
+                      <div
+                        *ngIf="submitted && f['city_id'].errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f['city_id'].errors.required">
+                          City is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-form-label" for="address">Address</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="icon-grid"></i
+                          ></span>
+                        </div>
+                        <input
+                          class="form-control"
+                          id="address"
+                          type="text"
+                          formControlName="address"
+                          placeholder="Address"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{
+                            'is-invalid': submitted && f.address.errors,
+                            'is-valid': f.address.touched && !f.address.errors
+                          }"
+                        />
+                      </div>
+                      <div class="error-messages">
+                        <ng-container *ngFor="let error of error_messages.address">
+                          <div
+                            class="error-message"
+                            *ngIf="
+                              f.address.hasError(error.type) &&
+                              (f.address.dirty || f.address.touched)
+                            "
+                          >
+                            {{ error.message }}
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div class="form-group">
+                  <button
+                    class="btn btn-success mr-1 w100px"
+                    type="submit"
+                    [disabled]="formGroup.invalid"
+                  >
+                    Save
+                  </button>
+                  <button
+                    class="btn btn-danger w100px"
+                    type="reset"
+                    [disabled]="formGroup.pristine && !submitted"
+                    (click)="onReset()"
+                    *ngIf="!id"
+                  >
+                    Reset
+                  </button>
+                  <a (click)="onCancel()" class="btn btn-secondary mr-1 w100px"
+                    >Cancel</a
+                  >
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

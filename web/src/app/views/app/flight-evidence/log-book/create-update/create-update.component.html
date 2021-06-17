@@ -1,0 +1,320 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="icon-note"></i> {{ title }}
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-4 border-right">
+
+              <div class="form-group">
+                <label class="col-form-label">Aircraft</label>
+                <div class="input-group">
+                  <div class="col-md-12  row mb-1">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-plane"></i></span></div>
+                    <input class="pl-1"
+                          type="text"
+                          autofocus
+                          placeholder="Aircraft"
+                          [value]="aircraft"
+                          disabled />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label">Last Flight Info</label>
+
+                <div class="row">
+
+                  <div class="input-group col-md-5 mb-2">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-paper-plane-o"></i></span></div>
+                    <input class="col-md-8 pl-1"
+                          type="text"
+                          autofocus
+                          placeholder="Flight No"
+                          [value]="flightNoStr"
+                          disabled />
+                  </div>
+                  <div class="input-group col-md-3 mb-2">
+
+                  </div>
+                  <div class="input-group col-md-4 mb-2">
+
+                  </div>
+
+                </div>
+
+                <div class="row">
+
+                  <div class="input-group col-md-6 mb-2">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-angle-double-up"></i></span></div>
+                    <input class="col-md-10 pl-1"
+                          type="text"
+                          autofocus
+                          placeholder="Origin"
+                          [value]="originStr"
+                          disabled />
+                  </div>
+                  <div class="input-group col-md-6 mb-2">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-angle-double-down"></i></span></div>
+                    <input class="col-md-10 pl-1"
+                          type="text"
+                          autofocus
+                          placeholder="Destination"
+                          [value]="destinationStr"
+                          disabled />
+                  </div>
+
+                </div>
+
+                <div class="row">
+
+                  <div class="input-group col-md-6 mb-2">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-angle-double-up"></i></span></div>
+                    <input class="col-md-10 pl-1"
+                          type="text"
+                          autofocus
+                          placeholder="Took Off At"
+                          [value]="flightTimeStartStr"
+                          disabled />
+                  </div>
+                  <div class="input-group col-md-6 mb-2">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-angle-double-down"></i></span></div>
+                    <input class="col-md-10 pl-1"
+                          type="text"
+                          autofocus
+                          placeholder="Landed At"
+                          [value]="flightTimeEndStr"
+                          disabled />
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label">Last A/C Status</label>
+                <div class="row">
+                  <div class="input-group col-md-12 mb-2">
+                    <div class="input-group-prepend"><span class="input-group-text py-0">A/C Total Hours&nbsp;</span></div>
+                    <input class="pl-1"
+                          type="text"
+                          autofocus
+                          [value]="currentTotalHoursStr"
+                          disabled />
+                  </div>
+                  <div class="input-group col-md-12 mb-2">
+                    <div class="input-group-prepend"><span class="input-group-text py-0">A/C Total Cycles</span></div>
+                    <input class="pl-1"
+                          type="text"
+                          autofocus
+                          [value]="currentTotalCyclesStr"
+                          disabled />
+                  </div>
+                  <div class="input-group col-md-12 mb-2">
+                    <div class="input-group-prepend"><span class="input-group-text py-0">Last Update&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+                    <input class="pl-1"
+                          type="text"
+                          autofocus
+                          [value]="lastUpdateStr"
+                          disabled />
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label">Current A/C Status</label>
+                <div class="row">
+                  <div class="input-group col-md-12 mb-2">
+                    <div class="input-group-prepend"><span class="input-group-text py-0">A/C Hours&nbsp;</span></div>
+                    <input class="pl-1"
+                          type="text"
+                          autofocus
+                          [value]="totalFlightHoursStr"
+                          disabled />
+                  </div>
+                  <div class="input-group col-md-12 mb-2">
+                    <div class="input-group-prepend"><span class="input-group-text py-0">A/C Cycles</span></div>
+                    <input class="pl-1"
+                          type="text"
+                          autofocus
+                          [value]="totalFlightCyclesStr"
+                          disabled />
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label">Total A/C Status</label>
+                <div class="row">
+                  <div class="input-group col-md-12 mb-2">
+                    <div class="input-group-prepend"><span class="input-group-text py-0">A/C Total Hours&nbsp;</span></div>
+                    <input class="pl-1"
+                          type="text"
+                          autofocus
+                          [value]="calculatedFlightHoursStr"
+                          disabled />
+                  </div>
+                  <div class="input-group col-md-12 mb-2">
+                    <div class="input-group-prepend"><span class="input-group-text py-0">A/C Total Cycles</span></div>
+                    <input class="pl-1"
+                          type="text"
+                          autofocus
+                          [value]="calculatedFlightCyclesStr"
+                          disabled />
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="col-sm-8">
+              <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()" class="needs-validation">
+
+                <div class="form-group">
+                  <label class="col-form-label" for="flight_route">Flight No</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-paper-plane-o"></i></span></div>
+                        <ng-select
+                        id="flight_route"
+                        name="flight_route"
+                        formControlName="flight_route"
+                        placeholder="Choose a flight no"
+                        [options]="flightRoutes"
+                        class="custom-select  col-md-4"
+                        [allowClear]="true"
+                        style="z-index: 1000"
+                        (selected)="selectFlightNo($event)"
+                        (deselected)="deselectFlightNo($event)"
+                        [ngClass]="{ 'is-invalid': submitted && f.flight_route.errors, 'is-valid': f.flight_route.touched && !f.flight_route.errors }"
+                        required>
+                      </ng-select>
+                  </div>
+                  <div *ngIf="submitted && f['flight_route'].errors" class="invalid-feedback">
+                    <div *ngIf="f['flight_route'].errors.required">Flight Route is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">Flight Route</label>
+                  <div class="input-group">
+                    <div class="col-md-6 row mb-1">
+                      <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-angle-double-up"></i></span></div>
+                      <input class="pl-1"
+                            type="text"
+                            autofocus
+                            placeholder="Origin"
+                            [value]="origin"
+                            disabled />
+                    </div>
+                    <div class="col-md-6 row mb-1">
+                      <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-angle-double-down"></i></span></div>
+                      <input class="pl-1"
+                            type="text"
+                            autofocus
+                            placeholder="Destination"
+                            [value]="destination"
+                            disabled />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group mb-5">
+                  <label class="col-form-label">Flight Time</label>
+                  <div class="input-group">
+                    <div class="col-md-6 row mb-4">
+                    <div class="col-md-6 row position-relative mb-5 ">
+                      <div class="input-group-prepend position-absolute">
+                        <span class="input-group-text"><i class="fa fa-angle-double-up"></i>
+                        </span>
+                      </div></div>
+
+                      <input autocomplete="off" id="flight_time_start_date" [maxDate]="maxDate" formControlName="flight_time_start_date" (ngModelChange)="flightTimeStartDateFunc($event)" [bsConfig]="bsConfig" type="text" class="form-control position-absolute" style="left:55px; width:140px"  placeholder="Flight Time Start"  bsDatepicker />
+
+                      <div class="position-absolute" style="left:200px; top:-27px">
+                          <timepicker formControlName="flight_time_start_time" (ngModelChange)="flightTimeStartTimeFunc($event)" [hourStep]="1" [minuteStep]="1" [showMeridian]="false" class="ml-12"></timepicker>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 row position-relative">
+                      <div class="input-group-prepend position-absolute">
+                        <span class="input-group-text"><i class="fa fa-angle-double-down"></i>
+                        </span>
+                      </div>
+
+                      <input autocomplete="off" id="flight_time_end_date" [(ngModel)]="flightTimeEndDate_" [minDate]="minDate" formControlName="flight_time_end_date" (ngModelChange)="flightTimeEndDateFunc($event)" [bsConfig]="bsConfig" type="text" class="form-control position-absolute" style="left:55px; width:140px" placeholder="Flight Time End"  bsDatepicker />
+
+                      <div class="position-absolute" style="left:200px; top:-27px">
+                          <timepicker [(ngModel)]="flightTimeEndTime_" formControlName="flight_time_end_time" (ngModelChange)="flightTimeEndTimeFunc($event)" [hourStep]="1" [minuteStep]="1" [showMeridian]="false" class="ml-12"></timepicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="flight_cycles">Flight Cycles</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-refresh"></i></span></div>
+                    <input  id="flight_cycles"
+                            name="flight_cycles"
+                            type="number"
+                            (ngModelChange)="flightCyclesFunc($event)"
+                            class="form-control pl-2 border col-md-2 py-0"
+                            autofocus
+                            min="1"
+                            formControlName="flight_cycles"
+                            required
+                            [ngClass]="{ 'is-invalid': submitted && f.flight_cycles.errors, 'is-valid': f.flight_cycles.touched && !f.flight_cycles.errors }"
+                            />
+                  </div>
+                  <div *ngIf="submitted && f['flight_cycles'].errors" class="invalid-feedback">
+                    <div *ngIf="f['flight_cycles'].errors.required">Flight Cycles is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="captain">Captain</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user-o"></i></span></div>
+                        <ng-select  id="captain"
+                                    name="captain"
+                                    formControlName="captain"
+                                    placeholder="Choose a captain"
+                                    [options]="captains"
+                                    class="custom-select  col-md-4"
+                                    [allowClear]="true"
+                                    style="z-index: 1000"
+                                    [ngClass]="{ 'is-invalid': submitted && f.captain.errors, 'is-valid': f.captain.touched && !f.captain.errors }"
+                                    required>
+                      </ng-select>
+                  </div>
+                  <div *ngIf="submitted && f['captain'].errors" class="invalid-feedback">
+                    <div *ngIf="f['captain'].errors.required">Flight Route is required</div>
+                  </div>
+                </div>
+
+                <br>
+                <div class="form-group">
+                  <button class="btn btn-success mr-1  w100px" type="submit" [disabled]="formGroup.invalid">Save</button>
+                  <button
+                    class="btn btn-danger w100px"
+                    type="reset"
+                    [disabled]="formGroup.pristine && !submitted"
+                    (click)="onReset()"
+                    *ngIf="!id">Reset</button>
+                  <a (click)="onCancel()" class="btn btn-secondary mr-1 w100px">Cancel</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

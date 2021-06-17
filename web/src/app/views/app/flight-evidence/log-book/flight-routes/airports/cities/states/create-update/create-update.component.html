@@ -1,0 +1,91 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="icon-note"></i> {{ title }}
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()" class="needs-validation">
+
+                <div class="form-group">
+                  <label class="col-form-label" for="name">Name</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-tag"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="name"
+                          type="text"
+                          formControlName="name"
+                          placeholder="Name"
+                          autocomplete="off"
+                          required
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.name.errors, 'is-valid': f.name.touched && !f.name.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                    <div *ngIf="f['name'].errors.required">Name is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="code">Code</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-grid"></i></span></div>
+                    <input class="form-control col-md-4"
+                          id="code"
+                          type="text"
+                          formControlName="code"
+                          placeholder="Code"
+                          autocomplete="off"
+                          autofocus
+                          [ngClass]="{ 'is-invalid': submitted && f.code.errors, 'is-valid': f.code.touched && !f.code.errors }" />
+                  </div>
+                  <div *ngIf="submitted && f['code'].errors" class="invalid-feedback">
+                    <div *ngIf="f['code'].errors.required">Code is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label" for="origin">Country</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-globe"></i></span></div>
+                        <ng-select
+                          id="country_id"
+                          name="country_id"
+                          formControlName="country_id"
+                          placeholder="Choose a country"
+                          [options]="countries"
+                          class="custom-select col-md-4"
+                          [allowClear]="true"
+                          style="z-index: 1010"
+                          [ngClass]="{ 'is-invalid': submitted && f.country_id.errors, 'is-valid': f.country_id.touched && !f.country_id.errors }"
+                          required>
+                      </ng-select>
+                  </div>
+                  <div *ngIf="submitted && f['country_id'].errors" class="invalid-feedback">
+                    <div *ngIf="f['country_id'].errors.required">Country is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <button class="btn btn-success mr-1  w100px" type="submit" [disabled]="formGroup.invalid">Save</button>
+                  <button
+                    class="btn btn-danger w100px"
+                    type="reset"
+                    [disabled]="formGroup.pristine && !submitted"
+                    (click)="onReset()"
+                    *ngIf="!id">Reset</button>
+                  <a (click)="onCancel()" class="btn btn-secondary mr-1 w100px">Cancel</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
