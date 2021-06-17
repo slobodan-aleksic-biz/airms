@@ -16,8 +16,9 @@
 
 2) get into web
 - cd web
-- ng serve
+- npm install
+- npm start
 
-3) You can log in with the next credentials:
+3) You can log in at http://localhost:4200/ with the next credentials:
 - username: slobodan.aleksic.biz@gmail.com
 - password: Password123
