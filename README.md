@@ -12,6 +12,7 @@
 - type: cd api
 - then type: docker-composer up
 - then open new terminal and type: docker-composer exec app bash
+- then run: composer install
 - then run: php artisan migrate --seed
 
 2) get into web
